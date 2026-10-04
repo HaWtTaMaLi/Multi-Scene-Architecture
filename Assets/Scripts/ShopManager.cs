@@ -2,15 +2,15 @@ using UnityEngine;
 
 public class ShopManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    //Return to main menu
+    public void ReturnToMainMenu()
     {
-        
+
     }
 
-    // Update is called once per frame
-    void Update()
+    //Start a new game
+    public void StartNewSession()
     {
-        
+
     }
 }
