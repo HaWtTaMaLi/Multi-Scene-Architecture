@@ -1,16 +1,32 @@
+using System.Collections;
 using UnityEngine;
 
 public class LoadingScreen : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] private CanvasGroup canvasGroup;
+    [SerializeField] private float fadeInTime = 0.5f;
+    [SerializeField] private float fadeOutTIme = 0.5f; 
+    public IEnumerator FadeInBlack()
     {
-        
+        yield return FadeTo(1f, fadeInTime);
     }
 
-    // Update is called once per frame
-    void Update()
+    public IEnumerator FadeOutBlack()
     {
-        
+        yield return FadeTo(0f, fadeOutTIme);
+    }
+
+    private IEnumerator FadeTo(float targetAlpha, float duration)
+    {
+        float startAlpha = canvasGroup.alpha;
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / duration);
+            canvasGroup.alpha = Mathf.Lerp(startAlpha, targetAlpha, t);
+            yield return null;
+        }    
+        canvasGroup.alpha = targetAlpha;
     }
 }

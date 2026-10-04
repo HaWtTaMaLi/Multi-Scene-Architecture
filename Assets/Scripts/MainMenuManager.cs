@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class MainMenuManager : MonoBehaviour
 {
-    //Start Game Button
+    //Start Game
     public void StartSession()
     {
 
