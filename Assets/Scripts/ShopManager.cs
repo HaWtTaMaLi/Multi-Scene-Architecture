@@ -5,6 +5,7 @@ public class ShopManager : MonoBehaviour
     //Switch to main menu
     public void SwitchToMainMenu()
     {
+        //unload shop, load data. load main menu, remove all data stored
         SceneController.Instance
             .NewTransition()
             .Unload(SceneDatabase.Slots.Shop)
@@ -18,6 +19,7 @@ public class ShopManager : MonoBehaviour
     //Start a new game
     public void StartNewSession()
     {
+        //unload shop, load data, load game play
         SceneController.Instance
             .NewTransition()
             .Unload(SceneDatabase.Slots.Shop)
