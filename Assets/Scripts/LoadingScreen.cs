@@ -5,7 +5,7 @@ public class LoadingScreen : MonoBehaviour
 {
     [SerializeField] private CanvasGroup canvasGroup;
     [SerializeField] private float fadeInTime = 0.5f;
-    [SerializeField] private float fadeOutTIme = 0.5f; 
+    [SerializeField] private float fadeOutTime = 0.5f; 
     public IEnumerator FadeInBlack()
     {
         yield return FadeTo(1f, fadeInTime);
@@ -13,7 +13,7 @@ public class LoadingScreen : MonoBehaviour
 
     public IEnumerator FadeOutBlack()
     {
-        yield return FadeTo(0f, fadeOutTIme);
+        yield return FadeTo(0f, fadeOutTime);
     }
 
     private IEnumerator FadeTo(float targetAlpha, float duration)

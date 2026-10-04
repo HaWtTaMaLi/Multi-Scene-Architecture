@@ -320,7 +320,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LoadingScreen
   canvasGroup: {fileID: 455515674}
   fadeInTime: 0.5
-  fadeOutTIme: 0.5
+  fadeOutTime: 0.5
 --- !u!1 &1235994153
 GameObject:
   m_ObjectHideFlags: 0
@@ -689,7 +689,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2015230963}
   m_Layer: 0
-  m_Name: --- Loading ---
+  m_Name: --- Core ---
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -724,7 +724,7 @@ GameObject:
   - component: {fileID: 2072013949}
   - component: {fileID: 2072013950}
   m_Layer: 0
-  m_Name: LoadingManager
+  m_Name: CoreManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

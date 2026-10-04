@@ -12,8 +12,8 @@ public class SceneDatabase : MonoBehaviour
     public class Scenes
     {
         public const string MainMenu = "MainMenu";
-        public const string Game = "GamePlay";
+        public const string SessionData = "SessionData";
+        public const string GamePlay = "GamePlay";
         public const string Shop = "Shop";
-        public const string Session = "SessionData";
     }
 }

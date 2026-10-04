@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class LoadingManager : MonoBehaviour
+public class CoreManager : MonoBehaviour
 {
     void Start()
     {
@@ -8,6 +8,7 @@ public class LoadingManager : MonoBehaviour
         SceneController.Instance
             .NewTransition()
             .Load(SceneDatabase.Slots.Menu, SceneDatabase.Scenes.MainMenu)
+            .WithLoadScreen()
             .Perform();
     }
 }

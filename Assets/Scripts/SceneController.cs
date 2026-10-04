@@ -24,18 +24,19 @@ public class SceneController : MonoBehaviour
     [SerializeField] private LoadingScreen loadingScreen;
     //Dictonary to hold all scene slots
     private Dictionary<string, string> loadedSceneBySlot = new();
+    //are we in a new 
     private bool isBusy = false;
-
+    //
     public SceneTranstionStep NewTransition()
     {
         return new SceneTranstionStep();
     }
-
+    //
     private Coroutine ExecuteTransition(SceneTranstionStep step)
     {
         if (isBusy)
         {
-            Debug.Log("Scene change already in progress.");
+            Debug.LogWarning("Scene change already in progress.");
             return null;
         }
         isBusy = true;
@@ -44,29 +45,32 @@ public class SceneController : MonoBehaviour
 
     private IEnumerator ChangeSceneRoutine(SceneTranstionStep step)
     {
+        //fade in to loading screen
         if (step.LoadScreen)
         {
             yield return loadingScreen.FadeInBlack();
             yield return new WaitForSeconds(0.05f);
         }
-
+        //unload all slots from the unload list
         foreach (var slotKey in step.ScenesToUnLoad)
         {
             yield return UnloadSceneRoutine(slotKey);
         }
-
+        //clean up unused assets
         if (step.ClearUnusedAssets) yield return CleanupUnusedAssetsRoutine();
-
+        //Load all scenes from the step
         foreach (var kvp in step.ScenesToLoad)
         {
+            //unload slot first so you dont have 2 scenes in one spot
             if (loadedSceneBySlot.ContainsKey(kvp.Key))
             {
                 yield return UnloadSceneRoutine(kvp.Key);
             }
             yield return LoadAdditiveRoutine(kvp.Key, 
-                kvp.Value,step.ActiveSceneName == kvp.Value);
+                kvp.Value,
+                step.ActiveSceneName == kvp.Value);
         }
-
+        //fade out to loading screen
         if (step.LoadScreen)
         {
             yield return loadingScreen.FadeOutBlack();
@@ -85,7 +89,13 @@ public class SceneController : MonoBehaviour
         {
             yield return null;
         }
+        loadOp.allowSceneActivation = true;
+        while (!loadOp.isDone)
+        {
+            yield return null;
+        }
 
+        // if the scene is an active scene, set it active
         if (setActive)
         {
             Scene newScene = SceneManager.GetSceneByName(sceneName);
@@ -93,8 +103,8 @@ public class SceneController : MonoBehaviour
             {
                 SceneManager.SetActiveScene(newScene);
             }
-            loadedSceneBySlot[slotKey] = sceneName;
         }
+        loadedSceneBySlot[slotKey] = sceneName;
     }
 
     private IEnumerator UnloadSceneRoutine(string slotKey)
@@ -111,7 +121,7 @@ public class SceneController : MonoBehaviour
         }
         loadedSceneBySlot.Remove(slotKey);
     }
-
+    //used to unload a whole session
     private IEnumerator CleanupUnusedAssetsRoutine()
     {
         AsyncOperation cleanOp = Resources.UnloadUnusedAssets();
@@ -128,12 +138,13 @@ public class SceneController : MonoBehaviour
         public Dictionary<string, string> ScenesToLoad { get; } = new();
         //scenes to unload
         public List<string> ScenesToUnLoad { get; } = new();
-        //name of active scene
+        //get the name of active scene
         public string ActiveSceneName { get; private set; } = "";
         //clear all unused assets when transitioning 
         public bool ClearUnusedAssets { get; private set; } = false;
         //Loading Screen
         public bool LoadScreen { get; private set; } = false;
+
         //Transition step Load 
         public SceneTranstionStep Load(string slotKey, string sceneName, bool setActive = false)
         {
