@@ -11,6 +11,7 @@ public class MainMenuManager : MonoBehaviour
             .NewTransition()
             .Unload(SceneDatabase.Slots.Menu)
             .Load(SceneDatabase.Slots.Data, SceneDatabase.Scenes.SessionData)
+            .Load(SceneDatabase.Slots.UI, SceneDatabase.Scenes.UserInterface)
             .Load(SceneDatabase.Slots.Shop, SceneDatabase.Scenes.Shop, setActive: true) 
             .WithLoadScreen()
             .WithClearUnusedAssets()
