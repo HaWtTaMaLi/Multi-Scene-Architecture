@@ -9,6 +9,7 @@ public class ShopManager : MonoBehaviour
         SceneController.Instance
             .NewTransition()
             .Unload(SceneDatabase.Slots.Shop)
+            .Unload(SceneDatabase.Slots.UI)
             .Load(SceneDatabase.Slots.Data, SceneDatabase.Scenes.SessionData)
             .Load(SceneDatabase.Slots.Menu, SceneDatabase.Scenes.MainMenu, setActive: true)
             .WithLoadScreen()
@@ -24,6 +25,7 @@ public class ShopManager : MonoBehaviour
             .NewTransition()
             .Unload(SceneDatabase.Slots.Shop)
             .Load(SceneDatabase.Slots.Data, SceneDatabase.Scenes.SessionData)
+            .Load(SceneDatabase.Slots.UI, SceneDatabase.Scenes.UserInterface)
             .Load(SceneDatabase.Slots.Game, SceneDatabase.Scenes.GamePlay, setActive: true)
             .WithLoadScreen()
             .Perform();
