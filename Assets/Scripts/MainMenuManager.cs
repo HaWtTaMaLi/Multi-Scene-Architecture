@@ -18,7 +18,7 @@ public class MainMenuManager : MonoBehaviour
             .Perform();
 
         //Change Game State
-        GameStateManager.instance.UpdateGameState(GameState.Shop);
+        GameStateManager.Instance.UpdateGameState(GameState.Shop);
     }
 }
 

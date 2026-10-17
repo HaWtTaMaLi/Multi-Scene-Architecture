@@ -13,7 +13,7 @@ public enum GameState
 
 public class GameStateManager : MonoBehaviour
 {
-    public static GameStateManager instance;
+    public static GameStateManager Instance;
 
     public GameState state;
 
@@ -21,7 +21,7 @@ public class GameStateManager : MonoBehaviour
 
     public void Awake()
     {
-        instance = this;
+        Instance = this;
     }
 
     public void Start()
@@ -61,26 +61,27 @@ public class GameStateManager : MonoBehaviour
         //handle main menu stuff here
         //put these in their own scripts?
         //disable player movement
+        //is game paused
     }
 
     public void OnShop()
     {
         //handle shop stuff here
         //disable player movement
-
+        //is game paused
     }
 
     public void OnGamePlay()
     {
         //handle game play stuff here
         //enable player movement
+        //is game paused
     }
 
     public void OnPaused()
     {
         //handle paused game stuff here
-
         //disable player movement
-
+        //is game paused
     }
 }

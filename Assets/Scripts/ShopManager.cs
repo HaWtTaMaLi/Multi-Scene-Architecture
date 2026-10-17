@@ -17,7 +17,7 @@ public class ShopManager : MonoBehaviour
             .Perform();
 
         //Change Game State
-        GameStateManager.instance.UpdateGameState(GameState.MainMenu);
+        GameStateManager.Instance.UpdateGameState(GameState.MainMenu);
     }
 
     //Start a new game
@@ -34,6 +34,6 @@ public class ShopManager : MonoBehaviour
             .Perform();
 
         //Change Game State
-        GameStateManager.instance.UpdateGameState(GameState.GamePlay);
+        GameStateManager.Instance.UpdateGameState(GameState.GamePlay);
     }
 }
