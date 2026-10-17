@@ -2,19 +2,8 @@ using UnityEngine;
 
 public class MainMenuManager : MonoBehaviour
 {
-
-    public void Awake()
-    {
-        GameStateManager.OnGameStateChanged += StartSession;
-    }
-
-    public void OnDestroy()
-    {
-        GameStateManager.OnGameStateChanged -= StartSession;
-    }
-
     //Start Game
-    public void StartSession(GameState state)
+    public void StartSession()
     {
         //load session and session content
         //unload menu, load data, load game play, remove all stored data
@@ -27,6 +16,9 @@ public class MainMenuManager : MonoBehaviour
             .WithLoadScreen()
             .WithClearUnusedAssets()
             .Perform();
-        state = GameState.Shop;
+
+        //Change Game State
+        GameStateManager.instance.UpdateGameState(GameState.Shop);
     }
 }
+

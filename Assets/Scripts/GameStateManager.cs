@@ -26,7 +26,7 @@ public class GameStateManager : MonoBehaviour
 
     public void Start()
     {
-        UpdateGameState(GameState.MainMenu);
+        OnGameStateChanged(GameState.MainMenu);
     }
 
     public void UpdateGameState(GameState newState)
@@ -52,30 +52,35 @@ public class GameStateManager : MonoBehaviour
                 OnPaused();
                 break;
         }
+
         OnGameStateChanged?.Invoke(newState);
     }
 
     public void OnMainMenu()
     {
         //handle main menu stuff here
-
+        //put these in their own scripts?
+        //disable player movement
     }
 
     public void OnShop()
     {
         //handle shop stuff here
+        //disable player movement
 
     }
 
     public void OnGamePlay()
     {
         //handle game play stuff here
-
+        //enable player movement
     }
 
     public void OnPaused()
     {
         //handle paused game stuff here
+
+        //disable player movement
 
     }
 }

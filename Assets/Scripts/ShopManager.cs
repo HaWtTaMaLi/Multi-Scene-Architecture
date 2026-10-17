@@ -2,21 +2,8 @@ using UnityEngine;
 
 public class ShopManager : MonoBehaviour
 {
-    public void Awake()
-    {
-        GameStateManager.OnGameStateChanged += SwitchToMainMenu;
-        GameStateManager.OnGameStateChanged += StartNewSession;
-    }
-
-    public void OnDestroy()
-    {
-        GameStateManager.OnGameStateChanged -= SwitchToMainMenu;
-        GameStateManager.OnGameStateChanged -= StartNewSession;
-
-    }
-
     //Switch to main menu
-    public void SwitchToMainMenu(GameState state)
+    public void SwitchToMainMenu()
     {
         //unload shop, load data. load main menu, remove all data stored
         SceneController.Instance
@@ -28,11 +15,13 @@ public class ShopManager : MonoBehaviour
             .WithLoadScreen()
             .WithClearUnusedAssets()
             .Perform();
-        state = GameState.MainMenu;
+
+        //Change Game State
+        GameStateManager.instance.UpdateGameState(GameState.MainMenu);
     }
 
     //Start a new game
-    public void StartNewSession(GameState state)
+    public void StartNewSession()
     {
         //unload shop, load data, load game play
         SceneController.Instance
@@ -43,6 +32,8 @@ public class ShopManager : MonoBehaviour
             .Load(SceneDatabase.Slots.Game, SceneDatabase.Scenes.GamePlay, setActive: true)
             .WithLoadScreen()
             .Perform();
-        state = GameState.GamePlay;
+
+        //Change Game State
+        GameStateManager.instance.UpdateGameState(GameState.GamePlay);
     }
 }
