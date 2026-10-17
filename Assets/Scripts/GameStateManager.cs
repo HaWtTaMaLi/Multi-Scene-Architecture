@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public enum GameState
@@ -6,6 +7,8 @@ public enum GameState
     Shop,
     GamePlay,
     Paused
+    //YouWon
+    //YouLoose
 }
 
 public class GameStateManager : MonoBehaviour
@@ -14,15 +17,65 @@ public class GameStateManager : MonoBehaviour
 
     public GameState state;
 
+    public static event Action<GameState> OnGameStateChanged;
+
     public void Awake()
     {
         instance = this;
+    }
+
+    public void Start()
+    {
+        UpdateGameState(GameState.MainMenu);
     }
 
     public void UpdateGameState(GameState newState)
     {
         state = newState;
 
+        switch (newState)
+        {
+            case GameState.MainMenu:
+                //handle main menu stuff here
+                OnMainMenu();
+                break;
+            case GameState.Shop:
+                //handle shop stuff here
+                OnShop();
+                break;
+            case GameState.GamePlay:
+                //handle game play stuff here
+                OnGamePlay();
+                break;
+            case GameState.Paused:
+                //handle paused game stuff here
+                OnPaused();
+                break;
+        }
+        OnGameStateChanged?.Invoke(newState);
+    }
+
+    public void OnMainMenu()
+    {
+        //handle main menu stuff here
+
+    }
+
+    public void OnShop()
+    {
+        //handle shop stuff here
+
+    }
+
+    public void OnGamePlay()
+    {
+        //handle game play stuff here
+
+    }
+
+    public void OnPaused()
+    {
+        //handle paused game stuff here
 
     }
 }

@@ -2,7 +2,13 @@ using UnityEngine;
 
 public class CoreManager : MonoBehaviour
 {
+
     void Start()
+    {
+        LoadCore();
+    }
+
+    public void LoadCore()
     {
         //load everything like audio managers, save systems
         SceneController.Instance
