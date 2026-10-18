@@ -56,6 +56,7 @@ public class GameStateManager : MonoBehaviour
         OnGameStateChanged?.Invoke(newState);
     }
 
+    //disable and enable inputs here ??
     public void OnMainMenu()
     {
         //handle main menu stuff here

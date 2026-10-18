@@ -26,6 +26,12 @@ public class SceneController : MonoBehaviour
     private Dictionary<string, string> loadedSceneBySlot = new();
     //are we in a new 
     private bool isBusy = false;
+
+    public bool IsSceneLoaded(string sceneName)
+    {
+        return loadedSceneBySlot.ContainsValue(sceneName);
+    }
+
     //
     public SceneTranstionStep NewTransition()
     {

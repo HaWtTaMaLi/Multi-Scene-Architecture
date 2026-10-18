@@ -1,0 +1,74 @@
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class PauseMenu : MonoBehaviour
+{
+    public bool isPaused = false;
+
+    //for when i make a return to main menu button
+    public void SwitchToMainMenu()
+    {
+        //unload game, load data, load main menu, remove all stored data
+        SceneController.Instance
+            .NewTransition()
+            .Unload(SceneDatabase.Slots.Game)
+            .Unload(SceneDatabase.Slots.UI)
+            .Load(SceneDatabase.Slots.Data, SceneDatabase.Scenes.SessionData)
+            .Load(SceneDatabase.Slots.Menu, SceneDatabase.Scenes.MainMenu, setActive: true)
+            .WithLoadScreen()
+            .WithClearUnusedAssets()
+            .Perform();
+
+        //Change Game State
+        GameStateManager.Instance.UpdateGameState(GameState.MainMenu);
+    }
+
+    public void Update()
+    {
+        //Temporary key press
+        //repace later with centralized input manager
+        if (SceneController.Instance.IsSceneLoaded("GamePlay"))
+        {
+            //check if we are in the "GamePlay" scene if yes then we can pause and unpause
+            if (Keyboard.current.escapeKey.wasPressedThisFrame)
+            {
+                if (isPaused)
+                {
+                    Resume();
+                }
+                else
+                {
+                    Pause();
+                }
+            }
+        }
+    }
+
+    public void Pause()
+    {
+        isPaused = true;
+
+        //unload game, load data, load shop
+        SceneController.Instance
+            .NewTransition()
+            .Load(SceneDatabase.Slots.Pause, SceneDatabase.Scenes.Paused, setActive: true)
+            .Perform();
+
+        //Change Game State
+        GameStateManager.Instance.UpdateGameState(GameState.Paused);
+    }
+
+    public void Resume()
+    {
+        isPaused = false;
+
+        //unload game, load data, load shop
+        SceneController.Instance
+            .NewTransition()
+            .Unload(SceneDatabase.Slots.Pause)
+            .Perform();
+
+        //Change Game State
+        GameStateManager.Instance.UpdateGameState(GameState.GamePlay);
+    }
+}
