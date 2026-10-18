@@ -27,7 +27,7 @@ public class PauseMenu : MonoBehaviour
     {
         //Temporary key press
         //repace later with centralized input manager
-        if (SceneController.Instance.IsSceneLoaded("GamePlay"))
+        if (SceneController.Instance.IsSceneLoaded("GamePlay") || SceneController.Instance.IsSceneLoaded("Paused"))
         {
             //check if we are in the "GamePlay" scene if yes then we can pause and unpause
             if (Keyboard.current.escapeKey.wasPressedThisFrame)
@@ -47,10 +47,14 @@ public class PauseMenu : MonoBehaviour
     public void Pause()
     {
         isPaused = true;
+        Time.timeScale = 0;
 
         //unload game, load data, load shop
         SceneController.Instance
             .NewTransition()
+            .Unload(SceneDatabase.Slots.Game)
+            .Unload(SceneDatabase.Slots.UI)
+            .Load(SceneDatabase.Slots.Data, SceneDatabase.Scenes.SessionData)
             .Load(SceneDatabase.Slots.Pause, SceneDatabase.Scenes.Paused, setActive: true)
             .Perform();
 
@@ -61,11 +65,15 @@ public class PauseMenu : MonoBehaviour
     public void Resume()
     {
         isPaused = false;
+        Time.timeScale = 1;
 
         //unload game, load data, load shop
         SceneController.Instance
             .NewTransition()
             .Unload(SceneDatabase.Slots.Pause)
+            .Load(SceneDatabase.Slots.Data, SceneDatabase.Scenes.SessionData)
+            .Load(SceneDatabase.Slots.UI, SceneDatabase.Scenes.UserInterface)
+            .Load(SceneDatabase.Slots.Game, SceneDatabase.Scenes.GamePlay, setActive: true)
             .Perform();
 
         //Change Game State
