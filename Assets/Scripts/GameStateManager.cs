@@ -80,8 +80,6 @@ public class GameStateManager : MonoBehaviour
         //handle game play stuff here
 
         //enable player movement
-
-        Time.timeScale = 1;
     }
 
     public void OnPaused()
@@ -89,7 +87,5 @@ public class GameStateManager : MonoBehaviour
         //handle paused game stuff here
 
         //disable player movement
-
-        Time.timeScale = 0;
     }
 }

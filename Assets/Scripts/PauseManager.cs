@@ -53,6 +53,7 @@ public class PauseManager : MonoBehaviour
     //When pausing we are not unloading the GamePlay scene
     public void Pause()
     {
+        
         //is the game paused
         isPaused = true;
 
@@ -70,6 +71,7 @@ public class PauseManager : MonoBehaviour
     
     public void Resume()
     {
+        
         //is the game paused
         isPaused = false;
 
