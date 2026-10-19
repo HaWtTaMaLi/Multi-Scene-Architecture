@@ -6,6 +6,7 @@ public class LoadingScreen : MonoBehaviour
     [SerializeField] private CanvasGroup canvasGroup;
     [SerializeField] private float fadeInTime = 0.5f;
     [SerializeField] private float fadeOutTime = 0.5f; 
+
     public IEnumerator FadeInBlack()
     {
         yield return FadeTo(1f, fadeInTime);
@@ -20,6 +21,7 @@ public class LoadingScreen : MonoBehaviour
     {
         float startAlpha = canvasGroup.alpha;
         float elapsed = 0f;
+
         while (elapsed < duration)
         {
             elapsed += Time.deltaTime;
@@ -27,6 +29,7 @@ public class LoadingScreen : MonoBehaviour
             canvasGroup.alpha = Mathf.Lerp(startAlpha, targetAlpha, t);
             yield return null;
         }    
+
         canvasGroup.alpha = targetAlpha;
     }
 }

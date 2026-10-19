@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 //keep PauseManager in Managers in GamePlay Scene
+//this helps keep track of the isPaused bool
 public class PauseManager : MonoBehaviour
 {
     public bool isPaused = false;
@@ -66,7 +67,6 @@ public class PauseManager : MonoBehaviour
         //Change Game State
         GameStateManager.Instance.UpdateGameState(GameState.Paused);
     }
-
     
     public void Resume()
     {

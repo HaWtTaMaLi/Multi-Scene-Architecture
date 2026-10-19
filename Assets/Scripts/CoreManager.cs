@@ -5,7 +5,6 @@ public class CoreManager : MonoBehaviour
     void Start()
     {
         LoadCore();
-
     }
 
     public void LoadCore()

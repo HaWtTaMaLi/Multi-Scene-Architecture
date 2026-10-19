@@ -28,6 +28,7 @@ public class GameStateManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+
         Instance = this;
     }
     #endregion
@@ -64,7 +65,6 @@ public class GameStateManager : MonoBehaviour
     {
         //handle main menu stuff here
 
-        //put these in their own scripts?
         //disable player movement
     }
 
