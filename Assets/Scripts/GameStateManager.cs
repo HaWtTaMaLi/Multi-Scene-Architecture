@@ -3,10 +3,10 @@ using UnityEngine;
 
 public enum GameState
 {
-    MainMenu,
-    Shop,
-    GamePlay,
-    Paused
+    MainMenu, //main menu manager
+    Shop, //shop manager
+    GamePlay, //game manager
+    Paused //pause manu (should change to manager)
     //YouWon
     //YouLoose
 }
@@ -19,15 +19,18 @@ public class GameStateManager : MonoBehaviour
 
     public static event Action<GameState> OnGameStateChanged;
 
+    //Singleton
+    #region Singleton
     public void Awake()
     {
+        if (Instance == null && Instance == this)
+        {
+            Destroy(gameObject);
+            return;
+        }
         Instance = this;
     }
-
-    public void Start()
-    {
-        OnGameStateChanged(GameState.MainMenu);
-    }
+    #endregion
 
     public void UpdateGameState(GameState newState)
     {
@@ -60,29 +63,33 @@ public class GameStateManager : MonoBehaviour
     public void OnMainMenu()
     {
         //handle main menu stuff here
+
         //put these in their own scripts?
         //disable player movement
-        //is game paused
     }
 
     public void OnShop()
     {
         //handle shop stuff here
+
         //disable player movement
-        //is game paused
     }
 
     public void OnGamePlay()
     {
         //handle game play stuff here
+
         //enable player movement
-        //is game paused
+
+        Time.timeScale = 1;
     }
 
     public void OnPaused()
     {
         //handle paused game stuff here
+
         //disable player movement
-        //is game paused
+
+        Time.timeScale = 0;
     }
 }

@@ -5,6 +5,7 @@ public class CoreManager : MonoBehaviour
     void Start()
     {
         LoadCore();
+
     }
 
     public void LoadCore()
@@ -15,5 +16,8 @@ public class CoreManager : MonoBehaviour
             .Load(SceneDatabase.Slots.Menu, SceneDatabase.Scenes.MainMenu)
             .WithLoadScreen()
             .Perform();
+
+            //Change Game State
+            GameStateManager.Instance.UpdateGameState(GameState.MainMenu);
     }
 }

@@ -36,4 +36,5 @@ public class GameManager : MonoBehaviour
         //Change Game State
         GameStateManager.Instance.UpdateGameState(GameState.Shop);
     }
+
 }

@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PauseMenu : MonoBehaviour
+//keep PauseManager in Managers in GamePlay Scene
+public class PauseManager : MonoBehaviour
 {
     public bool isPaused = false;
 
@@ -13,6 +14,7 @@ public class PauseMenu : MonoBehaviour
             .NewTransition()
             .Unload(SceneDatabase.Slots.Game)
             .Unload(SceneDatabase.Slots.UI)
+            .Unload(SceneDatabase.Slots.Pause)
             .Load(SceneDatabase.Slots.Data, SceneDatabase.Scenes.SessionData)
             .Load(SceneDatabase.Slots.Menu, SceneDatabase.Scenes.MainMenu, setActive: true)
             .WithLoadScreen()
@@ -32,42 +34,46 @@ public class PauseMenu : MonoBehaviour
             //check if we are in the "GamePlay" scene if yes then we can pause and unpause
             if (Keyboard.current.escapeKey.wasPressedThisFrame)
             {
+                //if game is paused
                 if (isPaused)
                 {
+                    //resume game play
                     Resume();
                 }
-                else
+                else //if game is not paused
                 {
+                    //pause
                     Pause();
                 }
             }
         }
     }
 
+    //When pausing we are not unloading the GamePlay scene
     public void Pause()
     {
+        //is the game paused
         isPaused = true;
-        Time.timeScale = 0;
 
-        //unload game, load data, load shop
+        //unload game, load data, load pause
         SceneController.Instance
             .NewTransition()
-            .Unload(SceneDatabase.Slots.Game)
             .Unload(SceneDatabase.Slots.UI)
             .Load(SceneDatabase.Slots.Data, SceneDatabase.Scenes.SessionData)
             .Load(SceneDatabase.Slots.Pause, SceneDatabase.Scenes.Paused, setActive: true)
             .Perform();
-
+        
         //Change Game State
         GameStateManager.Instance.UpdateGameState(GameState.Paused);
     }
 
+    
     public void Resume()
     {
+        //is the game paused
         isPaused = false;
-        Time.timeScale = 1;
 
-        //unload game, load data, load shop
+        //unload game, load data, load game play
         SceneController.Instance
             .NewTransition()
             .Unload(SceneDatabase.Slots.Pause)

@@ -27,6 +27,7 @@ public class SceneController : MonoBehaviour
     //are we in a new 
     private bool isBusy = false;
 
+    //use this to check if a certain scene is loaded
     public bool IsSceneLoaded(string sceneName)
     {
         return loadedSceneBySlot.ContainsValue(sceneName);
@@ -37,6 +38,7 @@ public class SceneController : MonoBehaviour
     {
         return new SceneTranstionStep();
     }
+
     //
     private Coroutine ExecuteTransition(SceneTranstionStep step)
     {
@@ -45,6 +47,7 @@ public class SceneController : MonoBehaviour
             Debug.LogWarning("Scene change already in progress.");
             return null;
         }
+
         isBusy = true;
         return StartCoroutine(ChangeSceneRoutine(step));
     }
