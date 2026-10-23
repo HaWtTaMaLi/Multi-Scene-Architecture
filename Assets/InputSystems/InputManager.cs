@@ -21,14 +21,17 @@ public class InputManager : ScriptableObject, InputSystem.IPlayerActions
     public void OnMove(InputAction.CallbackContext context)
     { 
         OnMoved?.Invoke(context.ReadValue<Vector2>());
-        Debug.Log("On Move Called");
+        Debug.Log("On Input Move Called");
     }
 
     //
     public void OnPause(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Performed) OnPaused?.Invoke();
-        Debug.Log("On Pause Called");
+        if (context.phase == InputActionPhase.Performed)
+        {
+            OnPaused?.Invoke();
+            Debug.Log("On Input Pause Called");
+        }
     }
 
     //Make sure the input system is created
@@ -71,11 +74,8 @@ public class InputManager : ScriptableObject, InputSystem.IPlayerActions
         _inputSystem.Player.Enable();
     }
     //Disable Player Input
-    public void DisablePlayerInput() 
-    { 
-        _inputSystem.Player.Disable(); 
-        _inputSystem.Player.Pause.Enable(); //keep pause enabled so we can pause the game
-    }
+    public void DisablePlayerInput() => _inputSystem.Player.Disable(); 
+
     //Enable UI Input
     public void EnableUIInput()
     {

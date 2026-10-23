@@ -10,34 +10,30 @@ public class PauseManager : MonoBehaviour
     //is the game paused?
     public bool isPaused = false;
 
-    //is pause requested?
-    public bool pauseRequested;
 
     public void OnEnable()
     {
         //??
-        inputManager.OnPaused += HandlePause;
+        inputManager.OnPaused += TogglePause;
     }
 
     public void OnDisable()
     {
-        inputManager.OnPaused -= HandlePause;
+        inputManager.OnPaused -= TogglePause;
     }
 
-    public void Update()
+    public void TogglePause()
     {
-        //check if pause is requested
-        if (pauseRequested)
+        //toggle pause state
+        if (isPaused == true)
         {
-            //toggle pause state
-            if (isPaused == true)
-            {
-                HandleResume();
-            }
-            else
-            {
-                HandlePause();
-            }
+            Debug.Log("Calling Handle Resume");
+            Resume();
+        }
+        else
+        {
+            Debug.Log("Calling Handle Pause");
+            Pause();
         }
     }
 
@@ -62,11 +58,8 @@ public class PauseManager : MonoBehaviour
     }
 
     //When pausing we are not unloading the GamePlay scene
-    public void HandlePause()
+    public void Pause()
     {
-        //set pause requested to true
-        pauseRequested = true;
-
         //is the game paused
         isPaused = true;
 
@@ -74,7 +67,8 @@ public class PauseManager : MonoBehaviour
         SceneController.Instance
             .NewTransition()
             .Unload(SceneDatabase.Slots.UI)
-           
+
+            //.Load(SceneDatabase.Slots.Game, SceneDatabase.Scenes.GamePlay)
             .Load(SceneDatabase.Slots.Data, SceneDatabase.Scenes.SessionData)
             .Load(SceneDatabase.Slots.Pause, SceneDatabase.Scenes.Paused, setActive: true)
             //.WithLoadScreen()
@@ -83,23 +77,19 @@ public class PauseManager : MonoBehaviour
         
         //Change Game State
         GameStateManager.Instance.UpdateGameState(GameState.Paused);
- 
+        //Time.timeScale = 0f; // Pause the game by setting time scale to 0
 
-        Debug.Log("is paused: " + isPaused + " & Time Scale : " + Time.timeScale);
+        Debug.Log("is paused: " + isPaused);
+
         //this is being called again on resume
         //why? the update input?
         //and also the Scene change already in progress warning pops up everytime
         //
     }
 
-    public void HandleResume()
+    public void Resume()
     {
-        //set pause requested to false
-        pauseRequested = false;
-
-        //is the game paused
         isPaused = false;
-
         //unload game, load data, load game play
         SceneController.Instance
             .NewTransition()
@@ -114,9 +104,10 @@ public class PauseManager : MonoBehaviour
 
         //Change Game State
         GameStateManager.Instance.UpdateGameState(GameState.GamePlay);
-
-        Debug.Log("is Unpaused : " + isPaused + " & Time Scale : " + Time.timeScale);
+        //Time.timeScale = 1f; // Reset time scale to normal
+        Debug.Log("is paused : " + isPaused);
     }
+    //nno matter where i put the Time.timeScale in code, it messes with the function of input
 
     public void QuitGame()
     {

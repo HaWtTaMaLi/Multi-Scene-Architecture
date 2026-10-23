@@ -5,6 +5,8 @@ public class GameManager : MonoBehaviour
     //Switch to Shop
     public void SwitchToShop()
     {
+        Debug.Log("Going to Shop" + " & Time Scale : " + Time.timeScale);
+
         //unload game, load data, load shop
         SceneController.Instance
             .NewTransition()
@@ -17,6 +19,5 @@ public class GameManager : MonoBehaviour
 
         //Change Game State
         GameStateManager.Instance.UpdateGameState(GameState.Shop);
-        Debug.Log("Going to Shop" + " & Time Scale : " + Time.timeScale);
     }
 }

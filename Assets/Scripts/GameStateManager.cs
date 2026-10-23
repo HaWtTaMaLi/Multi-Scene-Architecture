@@ -67,14 +67,14 @@ public class GameStateManager : MonoBehaviour
     {
         //debug for displaying what state we are in
         Debug.Log("Game State: " + state);
-
-        //Enable UI Input
-        inputManager.EnableUIInput();
+        
         //disable player movement
         inputManager.DisablePlayerInput();
 
-        //audio listeners ??
+        //Enable UI Input
+        //inputManager.EnableUIInput();
 
+        //audio listeners ??
     }
 
     public void OnShopState()
@@ -82,10 +82,11 @@ public class GameStateManager : MonoBehaviour
         //debug for displaying what state we are in
         Debug.Log("Game State: " + state);
 
-        //Enable UI Input
-        inputManager.EnableUIInput();
         //disable player movement
         inputManager.DisablePlayerInput();
+
+        //Enable UI Input
+        //inputManager.EnableUIInput();
 
         //audio listeners ??
     }
@@ -95,13 +96,14 @@ public class GameStateManager : MonoBehaviour
         //debug for displaying what state we are in
         Debug.Log("Game State: " + state);
 
-        //Disable UI Input
-        inputManager.DisableUIInput();
+        ////Disable UI Input
+        //inputManager.DisableUIInput();
+
         //Enable Player Input
         inputManager.EnablePlayerInput();
 
         //Set Time Scale
-        Time.timeScale = 1f;
+        //Time.timeScale = 1f;
 
         //audio listeners ??
     }
@@ -109,16 +111,19 @@ public class GameStateManager : MonoBehaviour
     public void OnPausedState()
     {
         //debug for displaying what state we are in
-        Debug.Log("Game State: " + state + " & Time Scale : " + Time.timeScale);
+        Debug.Log("Game State: " + state);
+
+        //Disable Player Input
+        //inputManager.DisablePlayerInput();
 
         //Enable UI Input
         inputManager.EnableUIInput();
-        //Disable Player Input
-        inputManager.DisablePlayerInput();
 
         //Set Time Scale
-        Time.timeScale = 0f;
+        //Time.timeScale = 0f;
 
         //audio listeners ??
     }
+
+    //nno matter where i put the Time.timeScale in code, it messes with the function of input
 }
