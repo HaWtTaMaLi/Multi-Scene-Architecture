@@ -2,25 +2,6 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    ////Switch to main Menu
-    //public void SwitchToMainMenu()
-    //{
-    //    //unload game, load data, load main menu, remove all stored data
-    //    SceneController.Instance
-    //        .NewTransition()
-    //        .Unload(SceneDatabase.Slots.Game)
-    //        .Unload(SceneDatabase.Slots.UI)
-    //        .Load(SceneDatabase.Slots.Data, SceneDatabase.Scenes.SessionData)
-    //        .Load(SceneDatabase.Slots.Menu, SceneDatabase.Scenes.MainMenu, setActive: true)
-    //        .WithLoadScreen()
-    //        .WithClearUnusedAssets()
-    //        .Perform();
-
-    //    //Change Game State
-    //    GameStateManager.Instance.UpdateGameState(GameState.MainMenu);
-    //    Debug.Log("Going to Main Menu from gameplay"); //but not needed because this is now in pause menu
-    //}
-
     //Switch to Shop
     public void SwitchToShop()
     {
@@ -38,5 +19,4 @@ public class GameManager : MonoBehaviour
         GameStateManager.Instance.UpdateGameState(GameState.Shop);
         Debug.Log("Going to Shop" + " & Time Scale : " + Time.timeScale);
     }
-
 }

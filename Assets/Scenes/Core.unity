@@ -240,11 +240,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ed7730645930bd41b41448bd7b30f32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameStateManager
+  inputManager: {fileID: 11400000, guid: a30bd71f55734104e954f9cabb7ddd43, type: 2}
   state: 0
-  MainMenu: {fileID: 0}
-  Shop: {fileID: 0}
-  GamePlay: {fileID: 0}
-  Paused: {fileID: 0}
 --- !u!1 &1084481495
 GameObject:
   m_ObjectHideFlags: 0

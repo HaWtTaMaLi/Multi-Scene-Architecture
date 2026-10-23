@@ -21,5 +21,11 @@ public class MainMenuManager : MonoBehaviour
         GameStateManager.Instance.UpdateGameState(GameState.Shop);
         Debug.Log("Going to Shop from Main Menu" + " & Time Scale : " + Time.timeScale);
     }
+
+    public void QuitGame()
+    {
+        Debug.Log("Quitting Game");
+        Application.Quit();
+    }
 }
 

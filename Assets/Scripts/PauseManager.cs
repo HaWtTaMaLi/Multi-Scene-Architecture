@@ -1,12 +1,45 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
+//using UnityEngine.InputSystem;
 
-//keep PauseManager in Managers in GamePlay Scene
+//keep PauseManager in ---Managers--- in GamePlay Scene
 //this helps keep track of the isPaused bool
 public class PauseManager : MonoBehaviour
 {
+    public InputManager inputManager;
+
     //is the game paused?
     public bool isPaused = false;
+
+    //is pause requested?
+    public bool pauseRequested;
+
+    public void OnEnable()
+    {
+        //??
+        inputManager.OnPaused += HandlePause;
+    }
+
+    public void OnDisable()
+    {
+        inputManager.OnPaused -= HandlePause;
+    }
+
+    public void Update()
+    {
+        //check if pause is requested
+        if (pauseRequested)
+        {
+            //toggle pause state
+            if (isPaused == true)
+            {
+                HandleResume();
+            }
+            else
+            {
+                HandlePause();
+            }
+        }
+    }
 
     //for when i make a return to main menu button
     public void SwitchToMainMenu()
@@ -28,36 +61,12 @@ public class PauseManager : MonoBehaviour
         Debug.Log("Going to Main Menu from Pause");
     }
 
-    public void Update()
-    {
-        //Temporary key press
-        //repace later with centralized input manager
-        if (SceneController.Instance.IsSceneLoaded("GamePlay")) /// || SceneController.Instance.IsSceneLoaded("Paused")
-        {
-            //check if we are in the "GamePlay" scene if yes then we can pause and unpause
-            if (Keyboard.current.escapeKey.wasPressedThisFrame)
-            {
-                //if game is paused
-                if (isPaused == true)
-                {
-                    //resume game play
-                    Resume();
-                }
-                else if (isPaused == false)//if game is not paused
-                {
-                    //pause
-                    Pause();
-                }
-            }
-            //is this input messing with my pause ? maybe?
-            //not maybe, it is i need to make an input manager
-        }
-    }
-
     //When pausing we are not unloading the GamePlay scene
-    public void Pause()
+    public void HandlePause()
     {
-        
+        //set pause requested to true
+        pauseRequested = true;
+
         //is the game paused
         isPaused = true;
 
@@ -74,7 +83,7 @@ public class PauseManager : MonoBehaviour
         
         //Change Game State
         GameStateManager.Instance.UpdateGameState(GameState.Paused);
-        //Time.timeScale = 0f;
+ 
 
         Debug.Log("is paused: " + isPaused + " & Time Scale : " + Time.timeScale);
         //this is being called again on resume
@@ -83,9 +92,11 @@ public class PauseManager : MonoBehaviour
         //
     }
 
-    public void Resume()
+    public void HandleResume()
     {
-        
+        //set pause requested to false
+        pauseRequested = false;
+
         //is the game paused
         isPaused = false;
 
@@ -103,7 +114,13 @@ public class PauseManager : MonoBehaviour
 
         //Change Game State
         GameStateManager.Instance.UpdateGameState(GameState.GamePlay);
-        //Time.timeScale = 1f;
+
         Debug.Log("is Unpaused : " + isPaused + " & Time Scale : " + Time.timeScale);
+    }
+
+    public void QuitGame()
+    {
+        Debug.Log("Quitting Game");
+        Application.Quit();
     }
 }

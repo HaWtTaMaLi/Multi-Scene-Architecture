@@ -13,7 +13,10 @@ public enum GameState
 
 public class GameStateManager : MonoBehaviour
 {
+
     public static GameStateManager Instance;
+
+    public InputManager inputManager;
 
     public GameState state;
 
@@ -41,53 +44,81 @@ public class GameStateManager : MonoBehaviour
         {
             case GameState.MainMenu:
                 //handle main menu stuff here
-                OnMainMenu();
+                OnMainMenuState();
                 break;
             case GameState.Shop:
                 //handle shop stuff here
-                OnShop();
+                OnShopState();
                 break;
             case GameState.GamePlay:
                 //handle game play stuff here
-                OnGamePlay();
+                OnGamePlayState();
                 break;
             case GameState.Paused:
                 //handle paused game stuff here
-                OnPaused();
+                OnPausedState();
                 break;
         }
 
         OnGameStateChanged?.Invoke(newState);
     }
 
-    //disable and enable inputs here ??
-    public void OnMainMenu()
+    public void OnMainMenuState()
     {
-        //handle main menu stuff here
+        //debug for displaying what state we are in
+        Debug.Log("Game State: " + state);
 
+        //Enable UI Input
+        inputManager.EnableUIInput();
         //disable player movement
+        inputManager.DisablePlayerInput();
+
+        //audio listeners ??
+
     }
 
-    public void OnShop()
+    public void OnShopState()
     {
-        //handle shop stuff here
+        //debug for displaying what state we are in
+        Debug.Log("Game State: " + state);
 
+        //Enable UI Input
+        inputManager.EnableUIInput();
         //disable player movement
+        inputManager.DisablePlayerInput();
+
+        //audio listeners ??
     }
 
-    public void OnGamePlay()
+    public void OnGamePlayState()
     {
-        //handle game play stuff here
+        //debug for displaying what state we are in
+        Debug.Log("Game State: " + state);
 
-        //enable player movement
+        //Disable UI Input
+        inputManager.DisableUIInput();
+        //Enable Player Input
+        inputManager.EnablePlayerInput();
+
+        //Set Time Scale
         Time.timeScale = 1f;
+
+        //audio listeners ??
     }
 
-    public void OnPaused()
+    public void OnPausedState()
     {
-        //handle paused game stuff here
+        //debug for displaying what state we are in
+        Debug.Log("Game State: " + state + " & Time Scale : " + Time.timeScale);
 
-        //disable player movement
+        //Enable UI Input
+        inputManager.EnableUIInput();
+        //Disable Player Input
+        inputManager.DisablePlayerInput();
+
+        //Set Time Scale
         Time.timeScale = 0f;
+
+        //audio listeners ??
     }
 }

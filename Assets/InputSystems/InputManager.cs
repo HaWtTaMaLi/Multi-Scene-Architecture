@@ -1,5 +1,8 @@
+using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
+[CreateAssetMenu(fileName = "InputManager", menuName = "Input/InputManager")]
 public class InputManager : ScriptableObject, InputSystem.IPlayerActions
 {
     //Input managerrrrr
@@ -7,15 +10,25 @@ public class InputManager : ScriptableObject, InputSystem.IPlayerActions
     //
     public InputSystem _inputSystem;
 
-    //Enable
-    //public void OnEnable => EnsureGameInputWasCreated();
+    //Events
+    public event Action<Vector2> OnMoved;
+    public event Action OnPaused;
 
-    //public void OnDisable => _inputSystem?.Player.Disable();
+    //Const checks, values that are constantly changed
+    public Vector2 Direction => _inputSystem.Player.Move.ReadValue<Vector2>();
 
     //
-    public void OnMove(UnityEngine.InputSystem.InputAction.CallbackContext context)
+    public void OnMove(InputAction.CallbackContext context)
+    { 
+        OnMoved?.Invoke(context.ReadValue<Vector2>());
+        Debug.Log("On Move Called");
+    }
+
+    //
+    public void OnPause(InputAction.CallbackContext context)
     {
-        
+        if (context.phase == InputActionPhase.Performed) OnPaused?.Invoke();
+        Debug.Log("On Pause Called");
     }
 
     //Make sure the input system is created
@@ -32,46 +45,44 @@ public class InputManager : ScriptableObject, InputSystem.IPlayerActions
 
         //enable input system
         _inputSystem.Enable(); //to help toggle input on and off for menus and gameplay
+
+        //load rebinds if they exist
     }
 
     //enable and disable the input systems
     #region Enable and Disable Inputs
-
+    //Enable PLayer and UI Input
     public void EnableAllInput()
     {
         EnsureGameInputWasCreated();
         _inputSystem.Player.Enable();
         _inputSystem.UI.Enable();
     }
-
+    //Disable Player and UI Input
     public void DisableAllInput()
     {
-        EnsureGameInputWasCreated();
         _inputSystem.Player.Disable();
         _inputSystem.UI.Disable();
     }
-
+    //Enable Player Input
     public void EnablePlayerInput()
     {
         EnsureGameInputWasCreated();
         _inputSystem.Player.Enable();
     }
-
-    public void DisablePlayerInput()
-    {
-        EnsureGameInputWasCreated();
-        _inputSystem.Player.Disable();
+    //Disable Player Input
+    public void DisablePlayerInput() 
+    { 
+        _inputSystem.Player.Disable(); 
+        _inputSystem.Player.Pause.Enable(); //keep pause enabled so we can pause the game
     }
-
+    //Enable UI Input
     public void EnableUIInput()
     {
         EnsureGameInputWasCreated();
         _inputSystem.UI.Enable();
     }
-    public void DisableUIInput()
-    {
-        EnsureGameInputWasCreated();
-        _inputSystem.UI.Disable();
-    }
+    //Disable UI Input
+    public void DisableUIInput() => _inputSystem.UI.Disable();
     #endregion
 }
