@@ -16,7 +16,8 @@ public class CoreManager : MonoBehaviour
             .WithLoadScreen()
             .Perform();
 
-            //Change Game State
-            GameStateManager.Instance.UpdateGameState(GameState.MainMenu);
+        //Change Game State
+        GameStateManager.Instance.UpdateGameState(GameState.MainMenu);
+        Debug.Log("Going to Main Menu from Core Load" + " & Time Scale : " + Time.timeScale);
     }
 }

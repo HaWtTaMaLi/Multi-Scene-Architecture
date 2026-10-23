@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 //this helps keep track of the isPaused bool
 public class PauseManager : MonoBehaviour
 {
+    //is the game paused?
     public bool isPaused = false;
 
     //for when i make a return to main menu button
@@ -24,29 +25,32 @@ public class PauseManager : MonoBehaviour
 
         //Change Game State
         GameStateManager.Instance.UpdateGameState(GameState.MainMenu);
+        Debug.Log("Going to Main Menu from Pause");
     }
 
     public void Update()
     {
         //Temporary key press
         //repace later with centralized input manager
-        if (SceneController.Instance.IsSceneLoaded("GamePlay") || SceneController.Instance.IsSceneLoaded("Paused"))
+        if (SceneController.Instance.IsSceneLoaded("GamePlay")) /// || SceneController.Instance.IsSceneLoaded("Paused")
         {
             //check if we are in the "GamePlay" scene if yes then we can pause and unpause
             if (Keyboard.current.escapeKey.wasPressedThisFrame)
             {
                 //if game is paused
-                if (isPaused)
+                if (isPaused == true)
                 {
                     //resume game play
                     Resume();
                 }
-                else //if game is not paused
+                else if (isPaused == false)//if game is not paused
                 {
                     //pause
                     Pause();
                 }
             }
+            //is this input messing with my pause ? maybe?
+            //not maybe, it is i need to make an input manager
         }
     }
 
@@ -61,14 +65,24 @@ public class PauseManager : MonoBehaviour
         SceneController.Instance
             .NewTransition()
             .Unload(SceneDatabase.Slots.UI)
+           
             .Load(SceneDatabase.Slots.Data, SceneDatabase.Scenes.SessionData)
             .Load(SceneDatabase.Slots.Pause, SceneDatabase.Scenes.Paused, setActive: true)
+            //.WithLoadScreen()
+
             .Perform();
         
         //Change Game State
         GameStateManager.Instance.UpdateGameState(GameState.Paused);
+        //Time.timeScale = 0f;
+
+        Debug.Log("is paused: " + isPaused + " & Time Scale : " + Time.timeScale);
+        //this is being called again on resume
+        //why? the update input?
+        //and also the Scene change already in progress warning pops up everytime
+        //
     }
-    
+
     public void Resume()
     {
         
@@ -79,12 +93,17 @@ public class PauseManager : MonoBehaviour
         SceneController.Instance
             .NewTransition()
             .Unload(SceneDatabase.Slots.Pause)
+
             .Load(SceneDatabase.Slots.Data, SceneDatabase.Scenes.SessionData)
             .Load(SceneDatabase.Slots.UI, SceneDatabase.Scenes.UserInterface)
             .Load(SceneDatabase.Slots.Game, SceneDatabase.Scenes.GamePlay, setActive: true)
+            //.WithLoadScreen()
+
             .Perform();
 
         //Change Game State
         GameStateManager.Instance.UpdateGameState(GameState.GamePlay);
+        //Time.timeScale = 1f;
+        Debug.Log("is Unpaused : " + isPaused + " & Time Scale : " + Time.timeScale);
     }
 }

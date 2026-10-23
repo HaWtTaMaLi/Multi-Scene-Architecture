@@ -22,8 +22,10 @@ public class SceneController : MonoBehaviour
 
     //LoadingScreen Reference
     [SerializeField] private LoadingScreen loadingScreen;
+
     //Dictonary to hold all scene slots
     private Dictionary<string, string> loadedSceneBySlot = new();
+
     //are we in a new 
     private bool isBusy = false;
 
@@ -171,6 +173,7 @@ public class SceneController : MonoBehaviour
         public SceneTranstionStep WithLoadScreen()
         {
             LoadScreen = true;
+            Debug.Log("LoadingScreen");
             return this;
         }
         //Clear Unused Assets

@@ -19,6 +19,7 @@ public class MainMenuManager : MonoBehaviour
 
         //Change Game State
         GameStateManager.Instance.UpdateGameState(GameState.Shop);
+        Debug.Log("Going to Shop from Main Menu" + " & Time Scale : " + Time.timeScale);
     }
 }
 
