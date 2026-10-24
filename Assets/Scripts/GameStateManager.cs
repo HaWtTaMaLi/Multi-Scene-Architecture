@@ -98,6 +98,8 @@ public class GameStateManager : MonoBehaviour
 
         ////Disable UI Input
         //inputManager.DisableUIInput();
+        //inputManager.EnableUIInput();
+
 
         //Enable Player Input
         inputManager.EnablePlayerInput();
@@ -115,6 +117,7 @@ public class GameStateManager : MonoBehaviour
 
         //Disable Player Input
         //inputManager.DisablePlayerInput();
+        //can get into player menu but can not get out
 
         //Enable UI Input
         inputManager.EnableUIInput();

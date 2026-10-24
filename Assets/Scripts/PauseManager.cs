@@ -10,7 +10,6 @@ public class PauseManager : MonoBehaviour
     //is the game paused?
     public bool isPaused = false;
 
-
     public void OnEnable()
     {
         //??
@@ -37,26 +36,6 @@ public class PauseManager : MonoBehaviour
         }
     }
 
-    //for when i make a return to main menu button
-    public void SwitchToMainMenu()
-    {
-        //unload game, load data, load main menu, remove all stored data
-        SceneController.Instance
-            .NewTransition()
-            .Unload(SceneDatabase.Slots.Game)
-            .Unload(SceneDatabase.Slots.UI)
-            .Unload(SceneDatabase.Slots.Pause)
-            .Load(SceneDatabase.Slots.Data, SceneDatabase.Scenes.SessionData)
-            .Load(SceneDatabase.Slots.Menu, SceneDatabase.Scenes.MainMenu, setActive: true)
-            .WithLoadScreen()
-            .WithClearUnusedAssets()
-            .Perform();
-
-        //Change Game State
-        GameStateManager.Instance.UpdateGameState(GameState.MainMenu);
-        Debug.Log("Going to Main Menu from Pause");
-    }
-
     //When pausing we are not unloading the GamePlay scene
     public void Pause()
     {
@@ -80,16 +59,13 @@ public class PauseManager : MonoBehaviour
         //Time.timeScale = 0f; // Pause the game by setting time scale to 0
 
         Debug.Log("is paused: " + isPaused);
-
-        //this is being called again on resume
-        //why? the update input?
-        //and also the Scene change already in progress warning pops up everytime
-        //
     }
 
     public void Resume()
     {
+        //is the game paused
         isPaused = false;
+
         //unload game, load data, load game play
         SceneController.Instance
             .NewTransition()
@@ -105,9 +81,30 @@ public class PauseManager : MonoBehaviour
         //Change Game State
         GameStateManager.Instance.UpdateGameState(GameState.GamePlay);
         //Time.timeScale = 1f; // Reset time scale to normal
+
         Debug.Log("is paused : " + isPaused);
     }
-    //nno matter where i put the Time.timeScale in code, it messes with the function of input
+    //nno matter where i put the Time.timeScale in code, it messes with the function of input    
+
+    //for when i make a return to main menu button
+    public void SwitchToMainMenu()
+    {
+        //unload game, load data, load main menu, remove all stored data
+        SceneController.Instance
+            .NewTransition()
+            .Unload(SceneDatabase.Slots.Game)
+            .Unload(SceneDatabase.Slots.UI)
+            .Unload(SceneDatabase.Slots.Pause)
+            .Load(SceneDatabase.Slots.Data, SceneDatabase.Scenes.SessionData)
+            .Load(SceneDatabase.Slots.Menu, SceneDatabase.Scenes.MainMenu, setActive: true)
+            .WithLoadScreen()
+            .WithClearUnusedAssets()
+            .Perform();
+
+        //Change Game State
+        GameStateManager.Instance.UpdateGameState(GameState.MainMenu);
+        Debug.Log("Going to Main Menu from Pause");
+    }
 
     public void QuitGame()
     {
