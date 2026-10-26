@@ -2,19 +2,37 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    //player "movement"
-    public GameObject player;
+    //
     public InputManager inputManager;
+
+    //player "movement"
+    public CharacterController playerController;
+    public Vector2 currentMovement;
+    public float moveSpeed = 15f;
 
     public void OnEnable()
     {
-        //??
-        //inputManager.OnMoved += ???;
+        //Subscribed to events
+        inputManager.OnMoved += HandleMove;
     }
 
     public void OnDisable()
     {
-        //??
-        //inputManager.OnMoved -= ???;
+        //Unsubscribed from events
+        inputManager.OnMoved -= HandleMove;
+    }
+
+    public void HandleMove(Vector2 movement)
+    {
+        currentMovement = movement;
+    }
+
+    public void Update()
+    {
+        Vector3 playermovement =
+            (transform.right * currentMovement.x + transform.up * currentMovement.y)
+            * moveSpeed * Time.deltaTime;
+
+        playerController.Move(playermovement);
     }
 }
