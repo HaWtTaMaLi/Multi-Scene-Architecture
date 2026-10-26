@@ -18,6 +18,7 @@ public class ShopManager : MonoBehaviour
 
         //Change Game State
         GameStateManager.Instance.UpdateGameState(GameState.MainMenu);
+
         //Debug.Log("Going to Main Menu from Shop");
     }
 
@@ -36,6 +37,7 @@ public class ShopManager : MonoBehaviour
 
         //Change Game State
         GameStateManager.Instance.UpdateGameState(GameState.GamePlay);
+
         //Debug.Log("Going to Game Play from Shop");
     }
 }

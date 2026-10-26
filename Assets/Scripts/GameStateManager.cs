@@ -18,7 +18,10 @@ public class GameStateManager : MonoBehaviour
 
     public InputManager inputManager;
 
-    public GameState state;
+    public bool isGamePaused = false;
+
+    public GameState State;
+    //public GameState previousState { get; private set; }
 
     public static event Action<GameState> OnGameStateChanged;
 
@@ -36,9 +39,10 @@ public class GameStateManager : MonoBehaviour
     }
     #endregion
 
+
     public void UpdateGameState(GameState newState)
     {
-        state = newState;
+        State = newState;
 
         switch (newState)
         {
@@ -66,45 +70,52 @@ public class GameStateManager : MonoBehaviour
     public void OnMainMenuState()
     {
         //debug for displaying what state we are in
-        Debug.Log("Game State: " + state);
-        //Enable UI Input
-        inputManager.EnableUIInput();
-        //
-        //inputManager.DisablePlayerInput();
+        Debug.Log("Game State: " + State);
 
+        isGamePaused = false;
+
+        inputManager.EnableUIInput();
         //audio listeners ??
+
     }
 
     public void OnShopState()
     {
         //debug for displaying what state we are in
-        Debug.Log("Game State: " + state);
+        Debug.Log("Game State: " + State);
 
-        //Enable UI Input
+        isGamePaused = false;
+
         inputManager.EnableUIInput();
-        //
-        //inputManager.DisablePlayerInput();
-
         //audio listeners ??
+        
     }
 
     public void OnGamePlayState()
     {
         //debug for displaying what state we are in
-        Debug.Log("Game State: " + state);
+        Debug.Log("Game State: " + State);
+
+        isGamePaused = false;
+        Time.timeScale = 1f;
+
         inputManager.EnablePlayerInput();
-        inputManager.EnableUIInput();
-        //Time.timeScale = 1.0f;
         //audio listeners ??
     }
 
     public void OnPausedState()
     {
         //debug for displaying what state we are in
-        Debug.Log("Game State: " + state);
+        Debug.Log("Game State: " + State);
+
+        isGamePaused = true;
+        Time.timeScale = 0f;
+
         inputManager.EnablePlayerInput();
         inputManager.EnableUIInput();
-        //Time.timeScale = 1f;
         //audio listeners ??
     }
+
+    //this is working a little better as in the pause works and the player input freezez,
+    //but you kinda need to spam unpause to get it to function on the button clicks
 }

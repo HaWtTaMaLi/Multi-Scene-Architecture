@@ -10,7 +10,6 @@ public class SceneDatabase : MonoBehaviour
         public const string Data = "SessionData";
         public const string Shop = "shop";
         public const string UI = "UserInterface";
-        public const string Pause = "Paused";
     }
 
     public class Scenes
@@ -21,6 +20,5 @@ public class SceneDatabase : MonoBehaviour
         public const string SessionData = "SessionData";
         public const string Shop = "Shop";
         public const string UserInterface = "UserInterface";
-        public const string Paused = "Paused";
     }
 }

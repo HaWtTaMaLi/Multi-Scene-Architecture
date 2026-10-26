@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class CoreManager : MonoBehaviour
 {
-    public InputManager inputManager;
-
     void Start()
     {
         LoadCore();
@@ -11,7 +9,6 @@ public class CoreManager : MonoBehaviour
 
     public void LoadCore()
     {
-        //Debug.Log("Going to Main Menu from Core Load");
 
         //load everything like audio managers, save systems
         SceneController.Instance
@@ -21,6 +18,8 @@ public class CoreManager : MonoBehaviour
             .Perform();
 
         //Change Game State
+        //GameStateManager.Instance.UpdateGameState(GameState.MainMenu);
         GameStateManager.Instance.UpdateGameState(GameState.MainMenu);
+        //Debug.Log("Going to Main Menu from Core Load");
     }
 }

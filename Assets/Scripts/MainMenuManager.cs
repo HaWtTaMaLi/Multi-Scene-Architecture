@@ -5,8 +5,6 @@ public class MainMenuManager : MonoBehaviour
     //Start Game
     public void StartSession()
     {
-        Debug.Log("Going to Shop from Main Menu");
-
         //load session and session content
         //unload menu, load data, load game play, remove all stored data
         SceneController.Instance
@@ -21,12 +19,22 @@ public class MainMenuManager : MonoBehaviour
 
         //Change Game State
         GameStateManager.Instance.UpdateGameState(GameState.Shop);
+
+        //Debug.Log("Going to Shop from Main Menu");
     }
 
     public void QuitGame()
     {
         Debug.Log("Quitting Game");
         Application.Quit();
+
+#if UNITY_EDITOR
+        // Stops play mode in the Editor
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        // Quits the built application
+        Application.Quit();
+#endif
     }
 }
 

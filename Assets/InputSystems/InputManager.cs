@@ -21,7 +21,7 @@ public class InputManager : ScriptableObject, InputSystem.IPlayerActions
     public void OnMove(InputAction.CallbackContext context)
     { 
         OnMoved?.Invoke(context.ReadValue<Vector2>());
-        Debug.Log("On Input Move Called");
+        //Debug.Log("On Input Move Called");
     }
 
     //
@@ -47,26 +47,13 @@ public class InputManager : ScriptableObject, InputSystem.IPlayerActions
         _inputSystem.Player.SetCallbacks(this);
 
         //enable input system
-        _inputSystem.Enable(); //to help toggle input on and off for menus and gameplay
+        //_inputSystem.Enable(); //to help toggle input on and off for menus and gameplay
 
         //load rebinds if they exist
     }
 
     //enable and disable the input systems
     #region Enable and Disable Inputs
-    //Enable PLayer and UI Input
-    public void EnableAllInput()
-    {
-        EnsureGameInputWasCreated();
-        _inputSystem.Player.Enable();
-        _inputSystem.UI.Enable();
-    }
-    //Disable Player and UI Input
-    public void DisableAllInput()
-    {
-        _inputSystem.Player.Disable();
-        _inputSystem.UI.Disable();
-    }
     //Enable Player Input
     public void EnablePlayerInput()
     {
