@@ -67,12 +67,10 @@ public class GameStateManager : MonoBehaviour
     {
         //debug for displaying what state we are in
         Debug.Log("Game State: " + state);
-        
-        //disable player movement
-        inputManager.DisablePlayerInput();
-
         //Enable UI Input
-        //inputManager.EnableUIInput();
+        inputManager.EnableUIInput();
+        //
+        //inputManager.DisablePlayerInput();
 
         //audio listeners ??
     }
@@ -82,11 +80,10 @@ public class GameStateManager : MonoBehaviour
         //debug for displaying what state we are in
         Debug.Log("Game State: " + state);
 
-        //disable player movement
-        inputManager.DisablePlayerInput();
-
         //Enable UI Input
-        //inputManager.EnableUIInput();
+        inputManager.EnableUIInput();
+        //
+        //inputManager.DisablePlayerInput();
 
         //audio listeners ??
     }
@@ -95,18 +92,9 @@ public class GameStateManager : MonoBehaviour
     {
         //debug for displaying what state we are in
         Debug.Log("Game State: " + state);
-
-        ////Disable UI Input
-        //inputManager.DisableUIInput();
-        //inputManager.EnableUIInput();
-
-
-        //Enable Player Input
         inputManager.EnablePlayerInput();
-
-        //Set Time Scale
-        //Time.timeScale = 1f;
-
+        inputManager.EnableUIInput();
+        //Time.timeScale = 1.0f;
         //audio listeners ??
     }
 
@@ -114,19 +102,9 @@ public class GameStateManager : MonoBehaviour
     {
         //debug for displaying what state we are in
         Debug.Log("Game State: " + state);
-
-        //Disable Player Input
-        //inputManager.DisablePlayerInput();
-        //can get into player menu but can not get out
-
-        //Enable UI Input
+        inputManager.EnablePlayerInput();
         inputManager.EnableUIInput();
-
-        //Set Time Scale
-        //Time.timeScale = 0f;
-
+        //Time.timeScale = 1f;
         //audio listeners ??
     }
-
-    //nno matter where i put the Time.timeScale in code, it messes with the function of input
 }

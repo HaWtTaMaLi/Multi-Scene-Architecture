@@ -11,7 +11,7 @@ public class CoreManager : MonoBehaviour
 
     public void LoadCore()
     {
-        Debug.Log("Going to Main Menu from Core Load" + " & Time Scale : " + Time.timeScale);
+        //Debug.Log("Going to Main Menu from Core Load");
 
         //load everything like audio managers, save systems
         SceneController.Instance

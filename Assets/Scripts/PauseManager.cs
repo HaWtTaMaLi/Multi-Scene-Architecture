@@ -3,40 +3,70 @@ using UnityEngine;
 
 //keep PauseManager in ---Managers--- in GamePlay Scene
 //this helps keep track of the isPaused bool
+
 public class PauseManager : MonoBehaviour
 {
+    public static PauseManager Instance; 
+
     public InputManager inputManager;
 
     //is the game paused?
     public bool isPaused = false;
 
+    //Singleton
+    #region Singleton
+    public void Awake()
+    {
+        if (Instance == null && Instance == this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+    }
+    #endregion
+
     public void OnEnable()
     {
-        //??
+        //Subscribed to events
         inputManager.OnPaused += TogglePause;
     }
 
     public void OnDisable()
-    {
+    {//Unsubscribed from events
         inputManager.OnPaused -= TogglePause;
+    }
+
+    public void Update()
+    {
+        //if scene MainMenu or Shop is loaded , set isPaused to false
+        if (SceneController.Instance
+            .IsSceneLoaded(SceneDatabase.Scenes.MainMenu) || SceneController.Instance
+            .IsSceneLoaded(SceneDatabase.Scenes.Shop)) isPaused = false;
     }
 
     public void TogglePause()
     {
-        //toggle pause state
-        if (isPaused == true)
+        //if the scene is not gamme play or pause we do nothing
+        if (SceneController.Instance
+            .IsSceneLoaded(SceneDatabase.Scenes.GamePlay) || SceneController.Instance
+            .IsSceneLoaded(SceneDatabase.Scenes.Paused))
         {
-            Debug.Log("Calling Handle Resume");
-            Resume();
-        }
-        else
-        {
-            Debug.Log("Calling Handle Pause");
-            Pause();
+            //toggle pause state
+            if (isPaused == true)
+            {
+                //Debug.Log("Calling Handle Resume");
+                Resume();
+            }
+            else
+            {
+                //Debug.Log("Calling Handle Pause");
+                Pause();
+            }
         }
     }
 
-    //When pausing we are not unloading the GamePlay scene
     public void Pause()
     {
         //is the game paused
@@ -46,19 +76,13 @@ public class PauseManager : MonoBehaviour
         SceneController.Instance
             .NewTransition()
             .Unload(SceneDatabase.Slots.UI)
-
-            //.Load(SceneDatabase.Slots.Game, SceneDatabase.Scenes.GamePlay)
             .Load(SceneDatabase.Slots.Data, SceneDatabase.Scenes.SessionData)
             .Load(SceneDatabase.Slots.Pause, SceneDatabase.Scenes.Paused, setActive: true)
-            //.WithLoadScreen()
-
             .Perform();
-        
+
         //Change Game State
         GameStateManager.Instance.UpdateGameState(GameState.Paused);
-        //Time.timeScale = 0f; // Pause the game by setting time scale to 0
-
-        Debug.Log("is paused: " + isPaused);
+        //Debug.Log("is paused: " + isPaused);
     }
 
     public void Resume()
@@ -70,19 +94,13 @@ public class PauseManager : MonoBehaviour
         SceneController.Instance
             .NewTransition()
             .Unload(SceneDatabase.Slots.Pause)
-
             .Load(SceneDatabase.Slots.Data, SceneDatabase.Scenes.SessionData)
             .Load(SceneDatabase.Slots.UI, SceneDatabase.Scenes.UserInterface)
-            .Load(SceneDatabase.Slots.Game, SceneDatabase.Scenes.GamePlay, setActive: true)
-            //.WithLoadScreen()
-
             .Perform();
 
         //Change Game State
         GameStateManager.Instance.UpdateGameState(GameState.GamePlay);
-        //Time.timeScale = 1f; // Reset time scale to normal
-
-        Debug.Log("is paused : " + isPaused);
+        //Debug.Log("is paused : " + isPaused);
     }
     //nno matter where i put the Time.timeScale in code, it messes with the function of input    
 

@@ -5,7 +5,7 @@ public class MainMenuManager : MonoBehaviour
     //Start Game
     public void StartSession()
     {
-        Debug.Log("Going to Shop from Main Menu" + " & Time Scale : " + Time.timeScale);
+        Debug.Log("Going to Shop from Main Menu");
 
         //load session and session content
         //unload menu, load data, load game play, remove all stored data
