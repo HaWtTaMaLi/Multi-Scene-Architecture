@@ -47,7 +47,7 @@ public class InputManager : ScriptableObject, InputSystem.IPlayerActions
         _inputSystem.Player.SetCallbacks(this);
 
         //enable input system
-        //_inputSystem.Enable(); //to help toggle input on and off for menus and gameplay
+        _inputSystem.Enable(); //to help toggle input on and off for menus and gameplay
 
         //load rebinds if they exist
     }

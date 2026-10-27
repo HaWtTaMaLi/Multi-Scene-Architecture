@@ -27,7 +27,7 @@ public class PlayerManager : MonoBehaviour
         currentMovement = movement;
     }
 
-    public void Update()
+    public void FixedUpdate()
     {
         Vector3 playermovement =
             (transform.right * currentMovement.x + transform.up * currentMovement.y)

@@ -34,6 +34,7 @@ public class PauseManager : MonoBehaviour
 
     public void Pause()
     {
+        //put in UIManager
         pauseCanvas.enabled = true;
 
         //Change Game State
@@ -44,6 +45,7 @@ public class PauseManager : MonoBehaviour
 
     public void Resume()
     {
+        //pput in UIManager
         pauseCanvas.enabled = false;
 
         //Change Game State

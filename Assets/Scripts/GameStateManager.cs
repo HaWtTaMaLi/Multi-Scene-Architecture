@@ -13,7 +13,6 @@ public enum GameState
 
 public class GameStateManager : MonoBehaviour
 {
-
     public static GameStateManager Instance;
 
     public InputManager inputManager;
@@ -21,7 +20,6 @@ public class GameStateManager : MonoBehaviour
     public bool isGamePaused = false;
 
     public GameState State;
-    //public GameState previousState { get; private set; }
 
     public static event Action<GameState> OnGameStateChanged;
 
@@ -38,7 +36,6 @@ public class GameStateManager : MonoBehaviour
         Instance = this;
     }
     #endregion
-
 
     public void UpdateGameState(GameState newState)
     {
@@ -76,7 +73,6 @@ public class GameStateManager : MonoBehaviour
 
         inputManager.EnableUIInput();
         //audio listeners ??
-
     }
 
     public void OnShopState()
@@ -88,7 +84,6 @@ public class GameStateManager : MonoBehaviour
 
         inputManager.EnableUIInput();
         //audio listeners ??
-        
     }
 
     public void OnGamePlayState()
@@ -97,10 +92,11 @@ public class GameStateManager : MonoBehaviour
         Debug.Log("Game State: " + State);
 
         isGamePaused = false;
-        Time.timeScale = 1f;
+        //Time.timeScale = 1f;
 
+        inputManager.DisableUIInput();
         inputManager.EnablePlayerInput();
-        //audio listeners ??
+        ////audio listeners ??
     }
 
     public void OnPausedState()
@@ -109,13 +105,14 @@ public class GameStateManager : MonoBehaviour
         Debug.Log("Game State: " + State);
 
         isGamePaused = true;
-        Time.timeScale = 0f;
+        //Time.timeScale = 0f;
 
-        inputManager.EnablePlayerInput();
         inputManager.EnableUIInput();
+        inputManager.EnablePlayerInput();
         //audio listeners ??
     }
 
     //this is working a little better as in the pause works and the player input freezez,
-    //but you kinda need to spam unpause to get it to function on the button clicks
+    //but you kinda need to spam unpause to get it to function on the button clicks 
+    //^ that is when the time scale is on
 }
