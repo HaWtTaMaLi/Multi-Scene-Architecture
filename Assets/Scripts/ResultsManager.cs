@@ -20,12 +20,16 @@ public class ResultsManager : MonoBehaviour
 
     public void NextMatch()
     {
-        //stop the timer
-        GameTimeManager.Instance.EndTimer();
 
         //if we are not in game play do nothing
         if (GameStateManager.Instance.State == GameState.GamePlay)
         {
+            //stop the timer
+            GameTimeManager.Instance.EndTimer();
+
+            //Display final time 
+            GameTimeManager.Instance.EndTimerAndShowResults();
+
             //Chnage Canvas
             UIManager.Instance.ShowResultsCanvas();
 

@@ -41,12 +41,12 @@ public class UIManager : MonoBehaviour
         if (pauseCanvas.enabled == false)
         {
             pauseCanvas.enabled = true;
-            gameTimeCanvas.enabled = false;
+            //gameTimeCanvas.enabled = false;
         }
         else
         {
             pauseCanvas.enabled = false;
-            gameTimeCanvas.enabled = true;
+            //gameTimeCanvas.enabled = true;
         }
     }
 

@@ -20,6 +20,7 @@ public class GameTimeManager : MonoBehaviour
 
     //Timer
     public TMP_Text gameTimeText;
+    public TMP_Text finalTimeText;
 
     public TimeSpan timePlaying;
     public bool isTimerGoing;
@@ -125,6 +126,10 @@ public class GameTimeManager : MonoBehaviour
 
     public void EndTimerAndShowResults()
     {
+        isTimerGoing = false;
 
+        String finalTimeString = timePlaying.ToString("hh':'mm':'ss");
+
+        finalTimeText.text = finalTimeString;
     }
 }
