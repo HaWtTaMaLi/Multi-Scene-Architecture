@@ -18,39 +18,36 @@ public class PauseManager : MonoBehaviour
 
     public void TogglePause()
     {
-        //toggle pause state
-        if (GameStateManager.Instance.isGamePaused == true)
+        //only allow us to use this is we are in game play or pause state
+        if (GameStateManager.Instance.State == GameState.GamePlay || 
+            GameStateManager.Instance.State == GameState.Paused)
         {
-            Resume();
-            //Debug.Log("Calling Handle Resume");
+            if(GameStateManager.Instance.State == GameState.GamePlay) 
+            {
+                //stop the timer
+                GameTimeManager.Instance.EndTimer();
+                //Channge Canvas
+                UIManager.Instance.ShowPauseCanvas();
+
+                //Change Game State
+                GameStateManager.Instance.UpdateGameState(GameState.Paused);
+
+                Debug.Log("Pause");
+            }
+            else
+            {
+                //start the timer
+                GameTimeManager.Instance.ResumeTimer();
+
+                //Change Canvas
+                UIManager.Instance.ShowPauseCanvas();
+
+                //Change Game State
+                GameStateManager.Instance.UpdateGameState(GameState.GamePlay);
+
+                Debug.Log("Resume");
+            }
         }
-        else
-        {
-            Pause();
-            //Debug.Log("Calling Handle Pause");
-        }
-    }
-
-    public void Pause()
-    {
-        //put in UIManager
-        UIManager.Instance.ShowPauseCanvas();
-
-        //Change Game State
-        GameStateManager.Instance.UpdateGameState(GameState.Paused);
-
-        Debug.Log("Pause");
-    }
-
-    public void Resume()
-    {
-        //pput in UIManager
-        UIManager.Instance.HidePauseCanvas();
-
-        //Change Game State
-        GameStateManager.Instance.UpdateGameState(GameState.GamePlay);
-
-        Debug.Log("Resume");
     }
 
     public void SwitchToMainMenu()

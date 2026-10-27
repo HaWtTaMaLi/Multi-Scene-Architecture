@@ -8,23 +8,30 @@ public class ResultsManager : MonoBehaviour
 
     public void OnEnable()
     {
-        //Subscribe
+        //Subscribed to events
         inputManager.OnNext += NextMatch;
     }
 
     public void OnDisable()
     {
-        //Unsubscribe
+        //Unsubscribe to events
         inputManager.OnNext -= NextMatch;
     }
 
     public void NextMatch()
     {
-        //Enable Canavas
-        UIManager.Instance.ShowResultsCanvas();
+        //stop the timer
+        GameTimeManager.Instance.EndTimer();
 
-        //Change Game State
-        GameStateManager.Instance.UpdateGameState(GameState.Results);
+        //if we are not in game play do nothing
+        if (GameStateManager.Instance.State == GameState.GamePlay)
+        {
+            //Chnage Canvas
+            UIManager.Instance.ShowResultsCanvas();
+
+            //Change Game State
+            GameStateManager.Instance.UpdateGameState(GameState.Results);
+        }
     }
 
     public void SwitchToShop()

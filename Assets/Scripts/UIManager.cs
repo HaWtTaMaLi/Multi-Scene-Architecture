@@ -6,10 +6,12 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance;
 
     //Canvases
-    public Canvas pauseCanvas;
-    public Canvas resultsCanvas;
+    public Canvas pauseCanvas; //1
+    public Canvas resultsCanvas; //2
+    public Canvas countDownCanvas; //3
+
+    //currently working on (WIP)
     public Canvas gameTimeCanvas;
-    public Canvas countDownCanvas;
 
     public void Awake()
     {
@@ -23,11 +25,10 @@ public class UIManager : MonoBehaviour
         Instance = this;
 
         //On Awake
-        HidePauseCanvas();
         HideResultsCanvas();
 
         //maybe these are controlled in game time manager
-        ShowCountDownCanvas(); //enable first, to count down to  
+        //ShowCountDownCanvas(); //enable first, to count down to  
         ShowGameTimeCanvas(); //this
     }
 
@@ -36,13 +37,17 @@ public class UIManager : MonoBehaviour
     //Pause Canvas
     public void ShowPauseCanvas()
     {
-        pauseCanvas.enabled = true;
-        gameTimeCanvas.enabled = false;
-    }
-    public void HidePauseCanvas()
-    {
-        pauseCanvas.enabled = false;
-        gameTimeCanvas.enabled = true;
+        //made pause ui toggle
+        if (pauseCanvas.enabled == false)
+        {
+            pauseCanvas.enabled = true;
+            gameTimeCanvas.enabled = false;
+        }
+        else
+        {
+            pauseCanvas.enabled = false;
+            gameTimeCanvas.enabled = true;
+        }
     }
 
     //Results Canvas

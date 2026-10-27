@@ -105,27 +105,32 @@ public class GameStateManager : MonoBehaviour
 
     public void OnResultsState()
     {
-        //debug for displaying what state we are in
-        Debug.Log("Game State: " + State);
+        if (State == GameState.GamePlay)
+        {         //debug for displaying what state we are in
+            Debug.Log("Game State: " + State);
 
-        isGamePaused = true;
-        //Time.timeScale = 0f;
+            isGamePaused = true;
+            //Time.timeScale = 0f;
 
-        inputManager.EnableUIInput();
-        inputManager.EnablePlayerInput();
+            inputManager.EnableUIInput();
+            inputManager.EnablePlayerInput();
+        }
     }
 
     public void OnPausedState()
     {
-        //debug for displaying what state we are in
-        Debug.Log("Game State: " + State);
+        if (State == GameState.GamePlay)
+        {
+            //debug for displaying what state we are in
+            Debug.Log("Game State: " + State);
 
-        isGamePaused = true;
-        //Time.timeScale = 0f;
+            isGamePaused = true;
+            //Time.timeScale = 0f;
 
-        inputManager.EnableUIInput();
-        inputManager.EnablePlayerInput();
-        //audio listeners ??
+            inputManager.EnableUIInput();
+            inputManager.EnablePlayerInput();
+            //audio listeners ??
+        }
     }
 
     //this is working a little better as in the pause works and the player input freezez,
