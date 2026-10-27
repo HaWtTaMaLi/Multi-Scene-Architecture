@@ -3,7 +3,6 @@ using UnityEngine;
 public class PauseManager : MonoBehaviour
 { 
     public InputManager inputManager;
-    public Canvas pauseCanvas;
 
     public void OnEnable()
     {
@@ -35,7 +34,7 @@ public class PauseManager : MonoBehaviour
     public void Pause()
     {
         //put in UIManager
-        pauseCanvas.enabled = true;
+        UIManager.Instance.ShowPauseCanvas();
 
         //Change Game State
         GameStateManager.Instance.UpdateGameState(GameState.Paused);
@@ -46,7 +45,7 @@ public class PauseManager : MonoBehaviour
     public void Resume()
     {
         //pput in UIManager
-        pauseCanvas.enabled = false;
+        UIManager.Instance.HidePauseCanvas();
 
         //Change Game State
         GameStateManager.Instance.UpdateGameState(GameState.GamePlay);

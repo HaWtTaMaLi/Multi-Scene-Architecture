@@ -6,6 +6,7 @@ public enum GameState
     MainMenu, //main menu manager
     Shop, //shop manager
     GamePlay, //game manager
+    Results,
     Paused //pause manu (should change to manager)
     //YouWon
     //YouLoose
@@ -55,6 +56,9 @@ public class GameStateManager : MonoBehaviour
                 //handle game play stuff here
                 OnGamePlayState();
                 break;
+            case GameState.Results:
+                OnResultsState();
+                break;
             case GameState.Paused:
                 //handle paused game stuff here
                 OnPausedState();
@@ -97,6 +101,18 @@ public class GameStateManager : MonoBehaviour
         inputManager.DisableUIInput();
         inputManager.EnablePlayerInput();
         ////audio listeners ??
+    }
+
+    public void OnResultsState()
+    {
+        //debug for displaying what state we are in
+        Debug.Log("Game State: " + State);
+
+        isGamePaused = true;
+        //Time.timeScale = 0f;
+
+        inputManager.EnableUIInput();
+        inputManager.EnablePlayerInput();
     }
 
     public void OnPausedState()

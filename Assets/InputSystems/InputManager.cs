@@ -13,6 +13,7 @@ public class InputManager : ScriptableObject, InputSystem.IPlayerActions
     //Events
     public event Action<Vector2> OnMoved;
     public event Action OnPaused;
+    public event Action OnNext;
 
     //Const checks, values that are constantly changed
     public Vector2 Direction => _inputSystem.Player.Move.ReadValue<Vector2>();
@@ -31,6 +32,17 @@ public class InputManager : ScriptableObject, InputSystem.IPlayerActions
         {
             OnPaused?.Invoke();
             Debug.Log("On Input Pause Called");
+        }
+    }
+
+    //TEMP
+    public void OnNextMatch(InputAction.CallbackContext context)
+    {
+        //temp till i set up a way to end the match
+        if(context.phase == InputActionPhase.Performed)
+        {
+            OnNext?.Invoke();
+            Debug.Log("On Input Next Match");
         }
     }
 
@@ -71,5 +83,6 @@ public class InputManager : ScriptableObject, InputSystem.IPlayerActions
     }
     //Disable UI Input
     public void DisableUIInput() => _inputSystem.UI.Disable();
+
     #endregion
 }
