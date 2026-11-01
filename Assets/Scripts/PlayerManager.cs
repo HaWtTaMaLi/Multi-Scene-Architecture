@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    //
     public InputManager inputManager;
 
     //player "movement"

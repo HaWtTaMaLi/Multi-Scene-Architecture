@@ -37,15 +37,22 @@ public class UIManager : MonoBehaviour
     //Pause Canvas
     public void ShowPauseCanvas()
     {
-        //made pause ui toggle
+        //if paused canvas is not enabled
         if (pauseCanvas.enabled == false)
         {
+            //enable it
             pauseCanvas.enabled = true;
+
+            //not doing this to show that the timer has stopped durring pause
             //gameTimeCanvas.enabled = false;
         }
+        //else the pause canvase is enabled
         else
         {
+            //disable it
             pauseCanvas.enabled = false;
+
+            //not doing this to show that the timer has stopped durring pause
             //gameTimeCanvas.enabled = true;
         }
     }

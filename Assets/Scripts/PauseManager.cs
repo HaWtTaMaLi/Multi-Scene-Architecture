@@ -18,14 +18,16 @@ public class PauseManager : MonoBehaviour
 
     public void TogglePause()
     {
-        //only allow us to use this is we are in game play or pause state
+        //only allow us to use this if we are in game play or pause state
         if (GameStateManager.Instance.State == GameState.GamePlay || 
             GameStateManager.Instance.State == GameState.Paused)
         {
+            //if we are in game play state
             if(GameStateManager.Instance.State == GameState.GamePlay) 
             {
                 //stop the timer
                 GameTimeManager.Instance.EndTimer();
+
                 //Channge Canvas
                 UIManager.Instance.ShowPauseCanvas();
 
@@ -34,6 +36,7 @@ public class PauseManager : MonoBehaviour
 
                 Debug.Log("Pause");
             }
+            //else we are in paused state
             else
             {
                 //start the timer
