@@ -26,9 +26,9 @@ public class SessionDataManager : MonoBehaviour
 {
     //"BootStrappedData"
     //"Loading manager"
+    [SerializeField] private UIManager _uiManager;
     [SerializeField] private MoneyManager _moneyManager;
     [SerializeField] private GameTimeManager _gameTimeManager;
-    [SerializeField] private UIManager _uiManager;
 
     public static SessionDataManager Instance { get; private set; } = null;
 

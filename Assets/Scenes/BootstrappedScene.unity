@@ -329,7 +329,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SessionDataManager
   _moneyManager: {fileID: 1115169440}
   _gameTimeManager: {fileID: 1181389803}
-  _uiManager: {fileID: 0}
+  _uiManager: {fileID: 1294480962}
 --- !u!4 &1706757703
 Transform:
   m_ObjectHideFlags: 0
