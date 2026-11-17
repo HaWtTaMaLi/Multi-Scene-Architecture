@@ -133,4 +133,15 @@ public class GameTimeManager : MonoBehaviour
 
         finalTimeText.text = finalTimeString;
     }
+
+    public void Initialize()
+    {
+        //Initialized 1: Session Data Manager
+        Debug.Log("GameTimeManager Initialized");
+
+        Instance = this;
+
+        DontDestroyOnLoad(gameObject);
+    }
+
 }

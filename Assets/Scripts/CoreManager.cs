@@ -5,7 +5,6 @@ public class CoreManager : MonoBehaviour
     public void Start()
     {
         LoadCore();
-        SessionDataManager.Instance.Initialize();
     }
 
     public void LoadCore()

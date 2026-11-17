@@ -1,4 +1,3 @@
-using TMPro;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
@@ -30,6 +29,16 @@ public class UIManager : MonoBehaviour
         //maybe these are controlled in game time manager
         //ShowCountDownCanvas(); //enable first, to count down to  
         ShowGameTimeCanvas(); //this
+    }
+
+    public void Initialize()
+    {
+        //Initialized 1: Session Data Manager
+        Debug.Log("MoneyManager Initialized");
+
+        Instance = this;
+
+        DontDestroyOnLoad(gameObject);
     }
 
     //Canvas Actions

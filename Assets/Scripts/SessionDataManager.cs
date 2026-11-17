@@ -1,11 +1,9 @@
-using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public static class PerformBootstrap
+public static class PerformBootstrapper
 {
     const string sceneName = "BootstrappedScene";
-
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     public static void Execute()
     {
@@ -27,6 +25,11 @@ public static class PerformBootstrap
 public class SessionDataManager : MonoBehaviour
 {
     //"BootStrappedData"
+    //"Loading manager"
+    [SerializeField] private MoneyManager _moneyManager;
+    [SerializeField] private GameTimeManager _gameTimeManager;
+    [SerializeField] private UIManager _uiManager;
+
     public static SessionDataManager Instance { get; private set; } = null;
 
     public void Awake()
@@ -40,12 +43,9 @@ public class SessionDataManager : MonoBehaviour
         Instance = this;
 
         DontDestroyOnLoad(gameObject);
-    }
 
-    public void Initialize()
-    {
-        //Initialized 1: Session Data Manager
-        Debug.Log("SessionDataManager Initialized");
-
+        _uiManager.Initialize();
+        _moneyManager.Initialize();
+        _gameTimeManager.Initialize();
     }
 }

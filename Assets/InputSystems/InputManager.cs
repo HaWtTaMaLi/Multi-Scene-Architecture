@@ -10,6 +10,7 @@ public class InputManager : ScriptableObject, InputSystem.IPlayerActions
     //
     public InputSystem _inputSystem;
 
+    public static InputManager Instance;
     //Events
     public event Action<Vector2> OnMoved;
     public event Action OnPaused;
