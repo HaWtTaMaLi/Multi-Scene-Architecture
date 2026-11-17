@@ -30,7 +30,7 @@ public class ResultsManager : MonoBehaviour
             //Display final time 
             GameTimeManager.Instance.EndTimerAndShowResults();
 
-            //Chnage Canvas
+            //Change Canvas
             UIManager.Instance.ShowResultsCanvas();
 
             //Change Game State
@@ -44,7 +44,6 @@ public class ResultsManager : MonoBehaviour
         SceneController.Instance
             .NewTransition()
             .Unload(SceneDatabase.Slots.Game)
-            .Load(SceneDatabase.Slots.Data, SceneDatabase.Scenes.SessionData)
             .Load(SceneDatabase.Slots.UI, SceneDatabase.Scenes.UserInterface)
             .Load(SceneDatabase.Slots.Shop, SceneDatabase.Scenes.Shop, setActive: true)
             .WithLoadScreen()

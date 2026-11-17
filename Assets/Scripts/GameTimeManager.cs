@@ -86,9 +86,10 @@ public class GameTimeManager : MonoBehaviour
 
         while (isTimerGoing)
         {
+
             //increase every frame
             countUpTime += Time.deltaTime;
-
+            
             //
             timePlaying = TimeSpan.FromSeconds(countUpTime);
 

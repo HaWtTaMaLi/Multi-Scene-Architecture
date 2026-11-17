@@ -2,9 +2,10 @@ using UnityEngine;
 
 public class CoreManager : MonoBehaviour
 {
-    void Start()
+    public void Start()
     {
         LoadCore();
+        SessionDataManager.Instance.Initialize();
     }
 
     public void LoadCore()
@@ -16,9 +17,7 @@ public class CoreManager : MonoBehaviour
             .WithLoadScreen()
             .Perform();
 
-        //Change Game State
         GameStateManager.Instance.UpdateGameState(GameState.MainMenu);
-
         //Debug.Log("Going to Main Menu from Core Load");
     }
 }

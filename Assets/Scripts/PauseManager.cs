@@ -60,7 +60,6 @@ public class PauseManager : MonoBehaviour
             .NewTransition()
             .Unload(SceneDatabase.Slots.Game)
             .Unload(SceneDatabase.Slots.UI)
-            .Load(SceneDatabase.Slots.Data, SceneDatabase.Scenes.SessionData)
             .Load(SceneDatabase.Slots.Menu, SceneDatabase.Scenes.MainMenu, setActive: true)
             .WithLoadScreen()
             .WithClearUnusedAssets()
