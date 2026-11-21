@@ -25,17 +25,17 @@ public class PlayerMovement : MonoBehaviour
     public void OnEnable()
     {
         //Debug.Log("PlayerMovement subscribed to Jump");
-        //_inputManager.OnJumped += HandleJump;
+        _inputManager.OnJumped += HandleJump;
         _inputManager.OnMoved += HandleMove;
-        //_inputManager.OnLooked += HandleLook;
+        _inputManager.OnLooked += HandleLook;
     }
 
     private void OnDisable()
     {
         //Debug.Log("PlayerMovement unsubscribed to Jump");
-        //_inputManager.OnJumped -= HandleJump;
+        _inputManager.OnJumped -= HandleJump;
         _inputManager.OnMoved -= HandleMove;
-        //_inputManager.OnLooked -= HandleLook;
+        _inputManager.OnLooked -= HandleLook;
     }
 
     public void Update()
