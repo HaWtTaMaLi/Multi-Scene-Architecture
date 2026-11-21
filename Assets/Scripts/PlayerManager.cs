@@ -4,9 +4,9 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private InputManager _inputManager;
 
-    public float moveSpeed = 5f;
-    public float jumpForce = 4f;
-    public float rotateSpeed = 1f;
+    public float moveSpeed;
+    public float jumpForce;
+    public float rotateSpeed;
     private float gravity = -9.81f; //defaut gravity 
     private float velocity;
     public Vector2 currentMovement; //to track current input for update functions

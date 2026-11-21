@@ -404,9 +404,9 @@ GameObject:
   m_Component:
   - component: {fileID: 240997215}
   - component: {fileID: 240997214}
-  - component: {fileID: 240997216}
   - component: {fileID: 240997218}
   - component: {fileID: 240997219}
+  - component: {fileID: 240997216}
   m_Layer: 0
   m_Name: PlayerManager
   m_TagString: Player
@@ -427,9 +427,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   _inputManager: {fileID: 11400000, guid: a30bd71f55734104e954f9cabb7ddd43, type: 2}
-  moveSpeed: 15
+  moveSpeed: 3
   jumpForce: 4
-  rotateSpeed: 1
+  rotateSpeed: 0.5
   currentMovement: {x: 0, y: 0}
   currentDirection: {x: 0, y: 0}
   playerController: {fileID: 240997216}
