@@ -18,9 +18,10 @@ public class ResultsManager : MonoBehaviour
         inputManager.OnNext -= NextMatch;
     }
 
+
+    //trigger this with a on trigger enter after going through door
     public void NextMatch()
     {
-
         //if we are not in game play do nothing
         if (GameStateManager.Instance.State == GameState.GamePlay)
         {

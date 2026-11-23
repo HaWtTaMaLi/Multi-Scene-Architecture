@@ -165,13 +165,4 @@ public class PlayerMovement : MonoBehaviour
             AnimationStateManager.Instance.DisableRunning();
         }
     }
-
-    public void DisableRunning()
-    {
-        isRunning = false;
-        currentMovement.y -= 0.5f;
-        currentMovement.x -= 0.5f;
-        currentSpeed = moveSpeed;
-        AnimationStateManager.Instance.DisableRunning();
-    }
 }

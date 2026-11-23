@@ -107,7 +107,8 @@ public class GameStateManager : MonoBehaviour
     public void OnResultsState()
     {
         if (State == GameState.GamePlay)
-        {         //debug for displaying what state we are in
+        {         
+            //debug for displaying what state we are in
             Debug.Log("Game State: " + State);
             AnimationStateManager.Instance.DisableAnimator();
 
