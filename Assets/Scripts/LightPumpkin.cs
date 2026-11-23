@@ -5,21 +5,9 @@ public class LightPumpkin : MonoBehaviour, IInteractable
     //
     public bool CanInteract() => canInteract;
     public GameObject lightComponent;
-    private Outline outline;
     [SerializeField] private bool canInteract = false;
     public bool isOn = false;
 
-    public void Awake()
-    {
-        //Set the outline component to the object
-        outline = gameObject.AddComponent<Outline>();
-        //Initialize the outline component
-        outline.OutlineMode = Outline.Mode.OutlineVisible;
-        outline.OutlineColor = Color.white;
-        outline.OutlineWidth = 3f;
-        //Disable the outline component on Awake
-        outline.enabled = false;
-    }
     public void LightOn()
     {
         isOn = true;
@@ -58,12 +46,10 @@ public class LightPumpkin : MonoBehaviour, IInteractable
 
     public void InRange()
     {
-        outline.enabled = true;
         canInteract = true;
     }
     public void OutofRange()
     {
-        outline.enabled = false;
         canInteract = false;
     }
 }

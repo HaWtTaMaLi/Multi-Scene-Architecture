@@ -8,7 +8,6 @@ public class OpenDoor : MonoBehaviour, IInteractable
     private float rotationAmount = -90;
     private float rotationSpeed = 1;
     private float forwardDirection = 0;
-    private Outline outline;
     public Coroutine AnimationCoroutine;
     private Vector3 startRotation;
     private Vector3 forward;
@@ -21,15 +20,6 @@ public class OpenDoor : MonoBehaviour, IInteractable
     {
         startRotation = transform.rotation.eulerAngles;
         forward = transform.forward;
-
-        //Set the outline component to the object
-        outline = gameObject.AddComponent<Outline>();
-        //Initialize the outline component
-        outline.OutlineMode = Outline.Mode.OutlineVisible;
-        outline.OutlineColor = Color.white;
-        outline.OutlineWidth = 3f;
-        //Disable the outline component on Awake
-        outline.enabled = false;
     }
 
     public IEnumerator DoRotationOpen(float forwardAmount)
@@ -131,12 +121,10 @@ public class OpenDoor : MonoBehaviour, IInteractable
     }
     public void InRange()
     {
-        outline.enabled = true;
         canInteract = true;
     }
     public void OutofRange()
     {
-        outline.enabled = false;
         canInteract = false;
     }
 }

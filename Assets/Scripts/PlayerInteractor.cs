@@ -1,3 +1,5 @@
+using System.Collections;
+using TMPro;
 using UnityEngine;
 
 public class PlayerInteractor : MonoBehaviour
@@ -9,6 +11,10 @@ public class PlayerInteractor : MonoBehaviour
     //set the layers in the inspector
     public LayerMask interactableLayer;
     public IInteractable currentInteractable;
+    public GameObject lastHit;
+    public float coolDownTime = 30;
+    public TMP_Text displayInteractable;
+    public string nothing = "";
 
     public void OnEnable() => _inputManager.OnInteracted += Interact;
     public void OnDisable() => _inputManager.OnInteracted -= Interact;
@@ -18,7 +24,7 @@ public class PlayerInteractor : MonoBehaviour
         currentInteractable?.Interact();
     }
 
-    public void Update()
+    public void FixedUpdate()
     {
         Ray ray = new Ray(playerCamera.position, playerCamera.forward);
 
@@ -29,12 +35,24 @@ public class PlayerInteractor : MonoBehaviour
             {
                 interactable.InRange();
 
+                //store the hit object in a variable
+                lastHit = hit.transform.gameObject;
+
+                //print to log
+                Debug.Log(lastHit.ToString());
+
+                //display the hit object in the UI
+                displayInteractable.text = lastHit.name.ToString();
 
                 currentInteractable = interactable;
             }
         }
         else
         {
+            //this is much more efficiant then the outline so i scrapped it for this instead
+            displayInteractable.text = nothing.ToString();
+
+            //
             currentInteractable.OutofRange();
         }
     }

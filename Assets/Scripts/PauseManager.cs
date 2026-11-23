@@ -1,8 +1,9 @@
 using UnityEngine;
 
 public class PauseManager : MonoBehaviour
-{ 
+{
     public InputManager inputManager;
+    public PlayerMovement _playerMovement;
 
     public void OnEnable()
     {
@@ -18,6 +19,7 @@ public class PauseManager : MonoBehaviour
 
     public void TogglePause()
     {
+
         //only allow us to use this if we are in game play or pause state
         if (GameStateManager.Instance.State == GameState.GamePlay || 
             GameStateManager.Instance.State == GameState.Paused)
@@ -25,8 +27,12 @@ public class PauseManager : MonoBehaviour
             //if we are in game play state
             if(GameStateManager.Instance.State == GameState.GamePlay) 
             {
+                //stop player movement
+                _playerMovement.enabled = false;
+
                 //stop the timer
                 GameTimeManager.Instance.EndTimer();
+
 
                 //Channge Canvas
                 UIManager.Instance.ShowPauseCanvas();
@@ -39,6 +45,9 @@ public class PauseManager : MonoBehaviour
             //else we are in paused state
             else
             {
+                //start the player movement
+                _playerMovement.enabled = true;
+
                 //start the timer
                 GameTimeManager.Instance.ResumeTimer();
 

@@ -16,16 +16,12 @@ public class GameStateManager : MonoBehaviour
 {
     public static GameStateManager Instance;
 
-    public InputManager inputManager;
-
-    public bool isGamePaused = false;
-
+    public float time;
     public GameState State;
+    public bool isGamePaused = false;
 
     public static event Action<GameState> OnGameStateChanged;
 
-    //Singleton
-    #region Singleton
     public void Awake()
     {
         if (Instance == null && Instance == this)
@@ -35,8 +31,16 @@ public class GameStateManager : MonoBehaviour
         }
 
         Instance = this;
+        time = Time.timeScale;
     }
-    #endregion
+
+    public void FixedUpdate()
+    {
+        if (State == GameState.Paused || State == GameState.Results)
+        {
+            isGamePaused = true;
+        }
+    }
 
     public void UpdateGameState(GameState newState)
     {
@@ -73,21 +77,13 @@ public class GameStateManager : MonoBehaviour
         //debug for displaying what state we are in
         Debug.Log("Game State: " + State);
 
-        isGamePaused = false;
-
-        inputManager.EnableUIInput();
-        //audio listeners ??
+        InputManager.Instance.EnableUIInput();
     }
 
     public void OnShopState()
     {
         //debug for displaying what state we are in
         Debug.Log("Game State: " + State);
-
-        isGamePaused = false;
-
-        inputManager.EnableUIInput();
-        //audio listeners ??
     }
 
     public void OnGamePlayState()
@@ -96,12 +92,6 @@ public class GameStateManager : MonoBehaviour
         Debug.Log("Game State: " + State);
 
         isGamePaused = false;
-        //Time.timeScale = 1f;
-        AnimationStateManager.Instance.EnableAnimator();
-
-        inputManager.DisableUIInput();
-        inputManager.EnablePlayerInput();
-        ////audio listeners ??
     }
 
     public void OnResultsState()
@@ -110,13 +100,6 @@ public class GameStateManager : MonoBehaviour
         {         
             //debug for displaying what state we are in
             Debug.Log("Game State: " + State);
-            AnimationStateManager.Instance.DisableAnimator();
-
-            isGamePaused = true;
-            //Time.timeScale = 0f;
-
-            inputManager.EnableUIInput();
-            inputManager.EnablePlayerInput();
         }
     }
 
@@ -126,16 +109,6 @@ public class GameStateManager : MonoBehaviour
         {
             //debug for displaying what state we are in
             Debug.Log("Game State: " + State);
-
-            isGamePaused = true;
-            //Time.timeScale = 0f;
-
-            AnimationStateManager.Instance.DisableAnimator();
-            //InputManager.Instance.DisablePlayerInput();
-
-            inputManager.EnableUIInput();
-            inputManager.EnablePlayerInput();
-            //audio listeners ??
         }
     }
 

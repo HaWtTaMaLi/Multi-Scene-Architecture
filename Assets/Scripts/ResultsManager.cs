@@ -3,6 +3,8 @@ using UnityEngine;
 public class ResultsManager : MonoBehaviour
 {
     public static ResultsManager Instance;
+    public PlayerMovement _playerMovement;
+
 
     public void Awake()
     {
@@ -21,6 +23,9 @@ public class ResultsManager : MonoBehaviour
         //if we are not in game play do nothing
         if (GameStateManager.Instance.State == GameState.GamePlay)
         {
+            //Disable player movement
+            _playerMovement.enabled = false;
+
             //stop the timer
             GameTimeManager.Instance.EndTimer();
 
@@ -45,6 +50,9 @@ public class ResultsManager : MonoBehaviour
             .Load(SceneDatabase.Slots.Shop, SceneDatabase.Scenes.Shop, setActive: true)
             .WithLoadScreen()
             .Perform();
+
+        //Enable player movement
+        _playerMovement.enabled = true;
 
         //Change Game State
         GameStateManager.Instance.UpdateGameState(GameState.Shop);

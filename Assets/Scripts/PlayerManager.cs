@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     public float moveSpeed;
     public float runSpeed;
     private float currentSpeed;
+    public float runUp = 0.5f;
     //
     public float jumpForce;
     public float rotateSpeed;
@@ -22,7 +23,8 @@ public class PlayerMovement : MonoBehaviour
     public CharacterController playerController;
     //
     public bool isJumping;
-    private bool jumpRequested;
+    public bool jumpRequested;
+    public bool runRequested;
     public bool isRunning;
 
     //so far best controlls ive ever put together!
@@ -70,24 +72,26 @@ public class PlayerMovement : MonoBehaviour
 
         //Animate
         AnimationStateManager.Instance.playerAnimator.SetFloat("PosY", currentMovement.y);
-        AnimationStateManager.Instance.playerAnimator.SetFloat("PosX", currentMovement.x); 
+        AnimationStateManager.Instance.playerAnimator.SetFloat("PosX", currentMovement.x);
 
         //
         if (playerController.isGrounded == true)
         {
             isJumping = false;
+            AnimationStateManager.Instance.DisableJumping();
 
             if (jumpRequested)
             {
                 isJumping = true;
                 //Debug.Log("Jump velocity before = " + velocity);
-
+                AnimationStateManager.Instance.EnableJumping();
                 //player go up
                 velocity = jumpForce;
 
                 jumpRequested = false;
                 //Debug.Log("Jump velocity after = " + velocity);
             }
+
         }
         else
         {
@@ -107,16 +111,13 @@ public class PlayerMovement : MonoBehaviour
         //Debug.Log("AirBorn" + velocity);
         //velocity jumps less if i remove it from the else part of the if statment?
 
-        //my velocity keeps jumping between negative and and 0\\
-
-        //jumping? 
-        if(!isJumping)
+        //my velocity keeps jumping between negative and and 0\\;
+        
+        if (!runRequested)
         {
-            AnimationStateManager.Instance.EnableJumping();
-        }
-        else
-        {
-            AnimationStateManager.Instance.DisableJumping();
+            //
+            isRunning = false;
+            runRequested = false;
         }
     }
 
@@ -144,25 +145,32 @@ public class PlayerMovement : MonoBehaviour
 
     public void HandleRunToggle()
     {
+
+        runRequested = true;
         //if we are already running
         if(isRunning == false)
         {
             //endbale running
             isRunning = true;
-            currentMovement.y += 0.5f;
-            currentMovement.x += 0.5f;
-            currentSpeed = runSpeed;
-            AnimationStateManager.Instance.EnableRunning();
-
+            IncreaseMoveSpeed();
         }
         else
         {
             //disable running
             isRunning = false;
-            currentMovement.y -= 0.5f;
-            currentMovement.x -= 0.5f;
-            currentSpeed = moveSpeed;
-            AnimationStateManager.Instance.DisableRunning();
+            DecreaseMoveSpeed();
         }
+    }
+
+    public void IncreaseMoveSpeed()
+    {
+        currentMovement.y += runUp;
+        currentSpeed = runSpeed;
+    }
+
+    public void DecreaseMoveSpeed()
+    {
+        currentMovement.y -= runUp;
+        currentSpeed = moveSpeed;
     }
 }

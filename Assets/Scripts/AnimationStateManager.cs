@@ -8,8 +8,6 @@ public class AnimationStateManager : MonoBehaviour
 
     private void Awake()
     {
-        playerAnimator.SetFloat("Speed", 0);
-
         if (Instance == null && Instance == this)
         {
             Destroy(gameObject);
@@ -18,6 +16,37 @@ public class AnimationStateManager : MonoBehaviour
         Instance = this;
 
         playerAnimator = GetComponent<Animator>();
+    }
+
+    public void FixedUpdate()
+    {
+        if (GameStateManager.Instance.State == GameState.GamePlay)
+        {
+            EnableAnimator();
+        }
+
+        if (GameStateManager.Instance.State == GameState.Paused)
+        {
+            DisableAnimator();
+        }
+
+        if (GameStateManager.Instance.State == GameState.Results)
+        {
+            DisableAnimator();
+        }
+    }
+
+    //
+    public void JumpingToggle()
+    {
+        if (playerAnimator.GetBool("isJumping"))
+        {
+            DisableJumping();
+        }
+        else
+        {
+            EnableJumping();
+        }
     }
 
     //
@@ -43,6 +72,7 @@ public class AnimationStateManager : MonoBehaviour
     //
     public void EnableRunning()
     {
+
         playerAnimator.SetBool("isRunning", true);
     }
     public void DisableRunning()
