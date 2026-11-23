@@ -97,6 +97,7 @@ public class GameStateManager : MonoBehaviour
 
         isGamePaused = false;
         //Time.timeScale = 1f;
+        AnimationStateManager.Instance.EnableAnimator();
 
         inputManager.DisableUIInput();
         inputManager.EnablePlayerInput();
@@ -108,6 +109,7 @@ public class GameStateManager : MonoBehaviour
         if (State == GameState.GamePlay)
         {         //debug for displaying what state we are in
             Debug.Log("Game State: " + State);
+            AnimationStateManager.Instance.DisableAnimator();
 
             isGamePaused = true;
             //Time.timeScale = 0f;
@@ -126,6 +128,9 @@ public class GameStateManager : MonoBehaviour
 
             isGamePaused = true;
             //Time.timeScale = 0f;
+
+            AnimationStateManager.Instance.DisableAnimator();
+            //InputManager.Instance.DisablePlayerInput();
 
             inputManager.EnableUIInput();
             inputManager.EnablePlayerInput();

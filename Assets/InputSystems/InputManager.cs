@@ -17,6 +17,7 @@ public class InputManager : ScriptableObject, InputSystem.IPlayerActions
     public event Action OnNext;
     public event Action OnJumped;
     public event Action OnInteracted;
+    public event Action OnRunning;
 
     //Const checks, values that are constantly changed
     public Vector2 Direction => _inputSystem.Player.Move.ReadValue<Vector2>();
@@ -28,6 +29,16 @@ public class InputManager : ScriptableObject, InputSystem.IPlayerActions
     { 
         OnMoved?.Invoke(context.ReadValue<Vector2>());
         //Debug.Log("On Input Move Called");
+    }
+
+    public void OnRun(InputAction.CallbackContext context)
+    {
+        if(context.phase == InputActionPhase.Performed)
+        {
+            //Debug.Log("Invoking OnRunning");
+
+            OnRunning?.Invoke();
+        }
     }
 
     public void OnLook(InputAction.CallbackContext context)
@@ -116,5 +127,6 @@ public class InputManager : ScriptableObject, InputSystem.IPlayerActions
     }
     //Disable UI Input
     public void DisableUIInput() => _inputSystem.UI.Disable();
+
     #endregion
 }
