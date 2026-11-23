@@ -14,7 +14,6 @@ public class InputManager : ScriptableObject, InputSystem.IPlayerActions
     public event Action<Vector2> OnLooked;
 
     public event Action OnPaused;
-    public event Action OnNext;
     public event Action OnJumped;
     public event Action OnInteracted;
     public event Action OnRunning;
@@ -76,17 +75,6 @@ public class InputManager : ScriptableObject, InputSystem.IPlayerActions
             //Debug.Log("Invoking OnInteract"); //Works
 
             OnInteracted?.Invoke();
-        }
-    }
-
-    //TEMP
-    public void OnNextMatch(InputAction.CallbackContext context)
-    {
-        //temp till i set up a way to end the match
-        if(context.phase == InputActionPhase.Performed)
-        {
-            OnNext?.Invoke();
-            Debug.Log("On Input Next Match");
         }
     }
 

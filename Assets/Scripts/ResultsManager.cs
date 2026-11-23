@@ -2,22 +2,18 @@ using UnityEngine;
 
 public class ResultsManager : MonoBehaviour
 {
-    //to display results at the end of the match
-    //Switch to Shop
-    public InputManager inputManager;
+    public static ResultsManager Instance;
 
-    public void OnEnable()
+    public void Awake()
     {
-        //Subscribed to events
-        inputManager.OnNext += NextMatch;
-    }
+        if (Instance == null && Instance == this)
+        {
+            Destroy(gameObject);
+            return;
+        }
 
-    public void OnDisable()
-    {
-        //Unsubscribe to events
-        inputManager.OnNext -= NextMatch;
+        Instance = this;
     }
-
 
     //trigger this with a on trigger enter after going through door
     public void NextMatch()

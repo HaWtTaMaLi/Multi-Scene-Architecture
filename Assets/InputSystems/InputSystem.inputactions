@@ -25,15 +25,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "NextMatch",
-                    "type": "Button",
-                    "id": "e4ee641f-21de-454f-8ca0-765d1d65e950",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Look",
                     "type": "Value",
                     "id": "391c3dee-1270-4ee5-a5ab-154cfd1a08aa",
@@ -211,17 +202,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Pause",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "369f2490-4d18-432e-89a3-4d917e9aed87",
-                    "path": "<Keyboard>/q",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "NextMatch",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
