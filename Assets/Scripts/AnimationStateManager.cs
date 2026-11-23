@@ -34,19 +34,7 @@ public class AnimationStateManager : MonoBehaviour
         {
             DisableAnimator();
         }
-    }
 
-    //
-    public void JumpingToggle()
-    {
-        if (playerAnimator.GetBool("isJumping"))
-        {
-            DisableJumping();
-        }
-        else
-        {
-            EnableJumping();
-        }
     }
 
     //

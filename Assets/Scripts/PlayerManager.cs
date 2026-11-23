@@ -8,9 +8,10 @@ public class PlayerMovement : MonoBehaviour
     //
     public static PlayerMovement Instance;
     //
-    public float moveSpeed;
+    public float walkSpeed;
     public float runSpeed;
     private float currentSpeed;
+    //this is not the right way to do it lol 
     public float runUp = 0.5f;
     //
     public float jumpForce;
@@ -24,7 +25,6 @@ public class PlayerMovement : MonoBehaviour
     //
     public bool isJumping;
     public bool jumpRequested;
-    public bool runRequested;
     public bool isRunning;
 
     //so far best controlls ive ever put together!
@@ -39,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
         Instance = this;
 
         //set initial speed for player
-        currentSpeed = moveSpeed;
+        currentSpeed = walkSpeed;
 
         playerController = GetComponent<CharacterController>();
     }
@@ -50,7 +50,7 @@ public class PlayerMovement : MonoBehaviour
         _inputManager.OnJumped += HandleJump;
         _inputManager.OnMoved += HandleMove;
         _inputManager.OnLooked += HandleLook;
-        _inputManager.OnRunning += HandleRunToggle;
+        _inputManager.OnRunning += HandleRun;
     }
 
     private void OnDisable()
@@ -59,7 +59,7 @@ public class PlayerMovement : MonoBehaviour
         _inputManager.OnJumped -= HandleJump;
         _inputManager.OnMoved -= HandleMove;
         _inputManager.OnLooked -= HandleLook;
-        _inputManager.OnRunning -= HandleRunToggle;
+        _inputManager.OnRunning -= HandleRun;
     }
 
     public void Update()
@@ -107,17 +107,17 @@ public class PlayerMovement : MonoBehaviour
         transform.Rotate(0, currentDirection.x * rotateSpeed, 0);
         //added Transform.right and transform.forward to my playermovement
         //so now i can see where im going
-
         //Debug.Log("AirBorn" + velocity);
         //velocity jumps less if i remove it from the else part of the if statment?
 
         //my velocity keeps jumping between negative and and 0\\;
-        
-        if (!runRequested)
+
+        //
+        if (currentMovement.y == 0 && currentMovement.x == 0 && isRunning)
         {
-            //
             isRunning = false;
-            runRequested = false;
+            currentSpeed = walkSpeed;
+
         }
     }
 
@@ -143,22 +143,14 @@ public class PlayerMovement : MonoBehaviour
         currentDirection = lookDirection;
     }
 
-    public void HandleRunToggle()
+    public void HandleRun()
     {
-
-        runRequested = true;
         //if we are already running
         if(isRunning == false)
         {
             //endbale running
             isRunning = true;
             IncreaseMoveSpeed();
-        }
-        else
-        {
-            //disable running
-            isRunning = false;
-            DecreaseMoveSpeed();
         }
     }
 
@@ -171,6 +163,6 @@ public class PlayerMovement : MonoBehaviour
     public void DecreaseMoveSpeed()
     {
         currentMovement.y -= runUp;
-        currentSpeed = moveSpeed;
+        currentSpeed = walkSpeed;
     }
 }
