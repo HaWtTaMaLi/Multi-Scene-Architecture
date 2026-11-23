@@ -84,10 +84,10 @@ public class PlayerMovement : MonoBehaviour
             {
                 isJumping = true;
                 //Debug.Log("Jump velocity before = " + velocity);
-                AnimationStateManager.Instance.EnableJumping();
                 //player go up
                 velocity = jumpForce;
 
+                AnimationStateManager.Instance.EnableJumping();
                 jumpRequested = false;
                 //Debug.Log("Jump velocity after = " + velocity);
             }
@@ -112,12 +112,12 @@ public class PlayerMovement : MonoBehaviour
 
         //my velocity keeps jumping between negative and and 0\\;
 
-        //
+        //if we are still and is running it still true then....
         if (currentMovement.y == 0 && currentMovement.x == 0 && isRunning)
         {
+            //set is running & walk speed
             isRunning = false;
             currentSpeed = walkSpeed;
-
         }
     }
 
@@ -145,6 +145,9 @@ public class PlayerMovement : MonoBehaviour
 
     public void HandleRun()
     {
+
+        if (currentMovement.y == 0 && currentMovement.x == 0) return;
+
         //if we are already running
         if(isRunning == false)
         {

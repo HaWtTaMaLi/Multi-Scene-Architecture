@@ -34,7 +34,6 @@ public class AnimationStateManager : MonoBehaviour
         {
             DisableAnimator();
         }
-
     }
 
     //
@@ -50,6 +49,9 @@ public class AnimationStateManager : MonoBehaviour
     //
     public void EnableJumping()
     {
+        //uhh
+
+
         playerAnimator.SetBool("isJumping", true);
     }
     public void DisableJumping()

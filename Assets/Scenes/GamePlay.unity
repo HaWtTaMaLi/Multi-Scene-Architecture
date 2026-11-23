@@ -7873,12 +7873,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   _inputManager: {fileID: 11400000, guid: a30bd71f55734104e954f9cabb7ddd43, type: 2}
-  moveSpeed: 3
+  walkSpeed: 3
   runSpeed: 5
+  runUp: 0.5
   jumpForce: 4
   rotateSpeed: 0.5
   playerController: {fileID: 4750619548285233990}
   isJumping: 0
+  jumpRequested: 0
   isRunning: 0
 --- !u!1 &8351525093252441427
 GameObject:
