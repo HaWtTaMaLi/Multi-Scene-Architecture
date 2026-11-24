@@ -27,11 +27,13 @@ public class AnimationStateManager : MonoBehaviour
 
         if (GameStateManager.Instance.State == GameState.Paused)
         {
+            //stop animation
             DisableAnimator();
         }
 
         if (GameStateManager.Instance.State == GameState.Results)
         {
+            //stop animation
             DisableAnimator();
         }
     }

@@ -31,6 +31,8 @@ public class GameStateManager : MonoBehaviour
         }
 
         Instance = this;
+
+        //to keep track of the time scale for debugging purposes
         time = Time.timeScale;
     }
 
